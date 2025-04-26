@@ -10,3 +10,7 @@
 翻译过程中发现了原书版本的一些排版问题，这些问题已被原作者修复。
 
 pdf输出使用Typora主题[typora-latex-theme](https://github.com/Keldos-Li/typora-latex-theme)
+
+2025.04.26
+
+增加了一个使用tpyst排版的A5小册子版本，修复了部分措词和别字。更适合打印参考。
