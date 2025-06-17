@@ -4,12 +4,18 @@
 #set text(
   font: (
     (name: "New Computer Modern", covers: "latin-in-cjk"),
-    "Noto Serif CJK SC",
+    "Source Han Serif SC",
   ),
   lang: "zh",
   region: "cn",
 )
-#show figure: set text(font: "New Computer Modern", size: 10pt)
+#show figure: set text(
+  font: (
+    (name: "New Computer Modern", covers: "latin-in-cjk"),
+    "Source Han Sans SC",
+  ),
+  size: 10pt,
+)
 
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.8": *
@@ -78,7 +84,13 @@
 
 #set grid.hline(stroke: 0.15pt)
 
-#show raw.line: set text(font: "Maple Mono NF", weight: 300)
+#show raw.line: set text(
+  font: (
+    (name: "JetBrains Mono", covers: "latin-in-cjk"),
+    "Source Han Sans SC",
+  ),
+  weight: 300,
+)
 // Your content goes below.
 
 = 向量数学
@@ -118,7 +130,7 @@ $ bold(arrow(v))=lr(angle.l 5, 6, 7angle.r) $
 
 $
   B&=A+bold(arrow(v)) \
-  &= (1+5,2+5,3+7) \
+  &= (1+5,2+6,3+7) \
   &= (6,8,10)
 $
 
@@ -222,8 +234,8 @@ $
 
 $
   bold(arrow(a))=lr(angle.l 4, 3, 0angle.r)\
-  2 dot bold(arrow(a))=lr(angle.l 2 crossmark 4, 2 crossmark 3, 0angle.r)\
-  2 dot bold(arrow(a))=lr(angle.l 8, 6, 0angle.r)
+  2 dot bold(arrow(a))=lr(angle.l 2 times 4, 2 times 3, 0angle.r)\
+  2 dot bold(arrow(a))=lr(angle.l 8, 6, 0 angle.r)
 $
 
 #figure(
@@ -277,8 +289,8 @@ $
 $
   bold(arrow(a))&=lr(angle.l 1, 2, 0 angle.r) \
   bold(arrow(b))&=lr(angle.l 4, 1, 4 angle.r) \
-  bold(arrow(a))-bold(arrow(b))&=lr(angle.l 1-4, 2-1, 0-3 angle.r) \
-  &=lr(angle.l -3, 1, -4 angle.r)
+  bold(arrow(a))-bold(arrow(b))&=lr(angle.l 1-4, 2-1, 0-4 angle.r) \
+  bold(arrow(a))-bold(arrow(b))&=lr(angle.l -3, 1, -4 angle.r) = bold(arrow(b a))
 $
 
 如果我们令$bold(arrow(b))$减去$bold(arrow(a))$，我们会得到不同的结果：
@@ -286,6 +298,7 @@ $
 $
   bold(arrow(b))-bold(arrow(a))&=lr(angle.l 4-1, 1-2, 4-0 angle.r) \
   &=lr(angle.l 3, -1, -4 angle.r) \
+  &= bold(arrow(a b))
 $
 
 注意向量$bold(arrow(b))-bold(arrow(a))$和$bold(arrow(a))-bold(arrow(b))$长度相同但是方向相反。
@@ -300,7 +313,7 @@ $
 $
   bold(arrow(a))&=lr(angle.l a_1, a_2, a_3 angle.r) \
   bold(arrow(b))&=lr(angle.l b_1, b_2, b_3 angle.r) \
-  bold(arrow(a))-bold(arrow(b))&=lr(angle.l a_1-b_1, a_2-b_2, a_3-b_3 angle.r)
+  bold(arrow(a))-bold(arrow(b))&=lr(angle.l a_1-b_1, a_2-b_2, a_3-b_3 angle.r) = bold(arrow(b a))
 $
 
 向量减法通常用于找到两个点之间的向量，所以如果我们需要找到一个从位置向量$bold(arrow(b))$结束点到位置向量$bold(arrow(a))$结束点的向量，我们就会使用向量减法令$bold(arrow(a))-bold(arrow(b))$，如图11所示：
@@ -338,7 +351,7 @@ $
 
 向量点积是一个两个向量得到一个实数的运算。例如，如果我们有两个向量$bold(arrow(a))$和$bold(arrow(b))$
 
-$ bold(arrow(a))=lr(angle.l 1, 2, 0 angle.r) space , space bold(arrow(b))=lr(angle.l 4, 1, 3 angle.r) $
+$ bold(arrow(a))=lr(angle.l 1, 2, 3 angle.r) space , space bold(arrow(b))=lr(angle.l 5, 6, 7 angle.r) $
 
 那么，点积是向量各分量乘积的和：
 ​$ bold(arrow(a)) dot bold(arrow(b))=1*5+2*6+3*7 \
