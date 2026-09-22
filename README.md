@@ -25,7 +25,7 @@
 typst compile 计算设计的基础数学.typ
 ```
 
-排版使用 [ilm](https://typst.app/universe/package/ilm) 模板，代码高亮使用 [codly](https://typst.app/universe/package/codly)。为获得最佳效果，建议安装以下开源字体：JetBrains Mono、Iosevka、Fira Mono、Source Han Serif SC、Source Han Sans SC。
+排版使用 [ilm](https://typst.app/universe/package/ilm) 模板，代码高亮使用 [codly](https://typst.app/universe/package/codly)，代码字体统一为 [Maple Mono](https://github.com/subframe7536/maple-font)（CN 版，中英文 2:1 对齐）。为获得最佳效果，建议安装以下开源字体：Maple Mono、Source Han Serif SC、Source Han Sans SC。
 
 ## 版权与致谢
 

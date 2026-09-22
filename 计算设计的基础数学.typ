@@ -1,4 +1,4 @@
-#import "@preview/ilm:1.4.1": *
+#import "@preview/ilm:2.1.1": *
 #import "@preview/pinit:0.2.2": *
 
 #set text(
@@ -32,10 +32,15 @@
 
     *计算设计的基础数学*
   ],
-  author: "Rajaa Issa 著   ArchiBC 译",
+  authors: "Rajaa Issa 著   ArchiBC 译",
   paper-size: "a5",
+  date: none,
   abstract: [向设计专业人员介绍有效开发计算3D模型的基础数学概念。],
   external-link-circle: false,
+  raw-text: (
+    font: ("Maple Mono", "Source Han Sans SC"),
+    size: 9pt,
+  ),
   table-of-contents: (outline(depth: 2)),
   preface: [
 
@@ -86,7 +91,7 @@
 
 #show raw.line: set text(
   font: (
-    (name: "JetBrains Mono", covers: "latin-in-cjk"),
+    "Maple Mono",
     "Source Han Sans SC",
   ),
   weight: 300,
