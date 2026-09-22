@@ -1,6 +1,8 @@
 #import "@preview/ilm:2.1.1": *
 #import "@preview/pinit:0.2.2": *
 #import "image.typ" as img
+#import "transforms.typ" as tr
+#import "curves.typ" as cr
 
 // 插图：默认填满正文宽度（100%），用 width 控制缩放，且不影响线宽与点大小
 #let fig(draw-fn, width: 100%, units: 8) = layout(size => draw-fn(length: size.width * width / units))
@@ -272,7 +274,7 @@ $
 $
 
 #figure(
-  image("image/math-image179.png", width: 50%),
+  fig(img.vector-addition, width: 50%),
   caption: [向量加法],
 )
 
@@ -287,7 +289,7 @@ $
 向量相加对于找到两个或者更多向量的平均方向非常有用。在这种情况下，我们通常使用相同长度的向量。下面是一个例子展示了使用相同长度向量和不同长度向量加和的区别。
 
 #figure(
-  image("image/math-image177.png", width: 50%),
+  fig(img.average-direction, width: 50%),
   caption: [对不同长度向量求和（左）对相同长度向量求和（右）来获得平均方向],
 )
 
@@ -313,7 +315,7 @@ $
 注意向量$bold(arrow(b))-bold(arrow(a))$和$bold(arrow(a))-bold(arrow(b))$长度相同但是方向相反。
 
 #figure(
-  image("image/math-image178.png", width: 50%),
+  fig(img.vector-subtraction, width: 50%),
   caption: [向量减法],
 )
 
@@ -328,7 +330,7 @@ $
 向量减法通常用于找到两个点之间的向量，所以如果我们需要找到一个从位置向量$bold(arrow(b))$结束点到位置向量$bold(arrow(a))$结束点的向量，我们就会使用向量减法令$bold(arrow(a))-bold(arrow(b))$，如图11所示：
 
 #figure(
-  image("image/math-image180.png", width: 50%),
+  fig(img.point-difference, width: 50%),
   caption: [使用向量减法找到两点之间的向量],
 )
 
@@ -376,7 +378,7 @@ $
 当我们做点积运算时，两个向量有相同的方向时我们能得到一个正实数。两个向量之间的点积为负意味着两个向量有相反的方向。
 
 #figure(
-  image("image/math-image181.png", width: 50%),
+  fig(img.dot-product-sign, width: 50%),
   caption: [当两个向量同方向时，结果是正点积（左），当两个向量不同方向时，结果是负点积（右）],
 )
 
@@ -440,7 +442,7 @@ $
 等于$bold(arrow(a))$到$bold(arrow(b))$的投影长度
 
 #figure(
-  image("image/math-image182.png", width: 75%),
+  fig(img.vector-projection, width: 75%),
   caption: [一个向量的投影长度是一个向量和另一个向量的单位向量的点积],
 )
 
@@ -469,7 +471,7 @@ $ "pL"=abs(bold(arrow(a))) dot cos theta = bold(arrow(a)) dot "unit" bold(arrow(
 叉积是两个向量得到第三个垂直于两向量的向量的运算。
 
 #figure(
-  image("image/math-image183.png", width: 50%),
+  fig(img.cross-product, width: 50%),
   caption: [计算两个向量的叉积],
 )
 
@@ -541,7 +543,7 @@ $
 $
 
 #figure(
-  image("image/math-image185.png", width: 75%),
+  fig(img.cross-product-angle, width: 75%),
   caption: [两个向量夹角的正弦和叉积的模之间的关系],
 )
 
@@ -586,7 +588,7 @@ $theta$是向量$bold(arrow(a))$和$bold(arrow(b))$之间的夹角
 直线的矢量方程适用与三维建模应用和计算机图形学。
 
 #figure(
-  image("image/math-image187.png", width: 75%),
+  fig(img.line-vector-equation, width: 75%),
   caption: [直线的矢量方程],
 )
 
@@ -660,7 +662,7 @@ $ M = Q + t dot bold(arrow(a)) $
 $ M = Q + 0.5 dot bold(arrow(a)) $
 
 #figure(
-  image("image/math-image159.png", width: 75%),
+  fig(img.line-midpoint, width: 75%),
   caption: [找到两点之间的中点],
 )
 
@@ -693,7 +695,7 @@ $
 $
 
 #figure(
-  image("image/math-image160.png", width: 50%),
+  fig(img.plane-vectors, width: 75%),
   caption: [向量和平面],
 )
 
@@ -738,7 +740,7 @@ $ a dot (x-x_0)+b dot (y-y_0)+c dot (z-z_0)=0 $
 - 一个曲面
 - 一个点
 
-#image("image/math-image161.png", width: 100%)
+#align(center)[#image("image/math-image161.png", width: 75%)]
 
 *参数*：
 
@@ -865,7 +867,7 @@ private void RunScript(Point3d pt, Surface srf, ref object A)
 
 *输入*：
 
-我们在GH中使用*box*组件输入：#box[#image("image/math-image17.jpg", width: 10%)]
+我们在GH中使用*box*组件输入：#box(baseline: 50% - 0.35em)[#image("image/math-image17.jpg", width: 15%)]
 
 *参数*：
 
@@ -1038,7 +1040,7 @@ private void RunScript(Brep box, double dis, ref object A)
 
 两个点$A$和$B$在三维坐标系。
 
-#align(center)[#image("image/math-image6.png", width: 50%)]
+#align(center)[#image("image/math-image6.png", width: 30%)]
 
 *参数*：
 
@@ -1217,11 +1219,11 @@ $
 
 单位矩阵是一个特殊的矩阵，除了对角线上的分量为1外，所有的分量都为0。
 
-#align(center)[#image("image/math-image68.png", width: 50%)]
+#align(center)[#block(width: 50%)[#img.identity-matrix()]]
 
 单位矩阵的主要性质是单位矩阵乘任意矩阵或0的结果依然是该矩阵或0。
 
-#align(center)[#image("image/math-image52.png", width: 100%)]
+#align(center)[#img.identity-multiplication()]
 
 == 变换操作
 
@@ -1231,11 +1233,12 @@ $
 
 将点从起始位置移动某个向量的计算如下：
 
-$
-  P' = P + bold(arrow(v))
-$
-
-#align(center)[#image("image/math-image35.png", width: 40%)]
+#grid(
+  columns: (1fr, 1fr),
+  align: center + horizon,
+  $ P' = P + bold(arrow(v)) $,
+  fig(tr.translation-vector),
+)
 
 假设：
 
@@ -1271,11 +1274,11 @@ $
 
 
 #grid(
-  columns: (auto, auto),
+  columns: (1fr, 2fr),
   align: horizon,
   $ mat(1, 0, 0, 4; 0, 1, 0, 5; 0, 0, 1, 3; 0, 0, 0, 1) $,
   figure(
-    image("image/math-image37.png", width: 75%),
+    fig(tr.translation-cube, width: 75%),
     caption: [平移所有方框角点],
   ),
 )
@@ -1286,7 +1289,7 @@ $
   columns: (1fr, 2fr),
   gutter: 4em,
   [#v(1em)#h(2em) 本节介绍如何使用三角函数计算绕 z 轴和原点的旋转，然后推导旋转变换的一般矩阵格式。],
-  image("image/math-image39.png", width: 75%),
+  fig(tr.rotation-point, width: 75%),
 )
 
 在$x y$平面取一点P(x,y)并且旋转一个角度$$b$$. 我们由图易得：
@@ -1353,7 +1356,7 @@ $ x' = x dot sin(b) - y dot cos(b) $
 + 将旋转矩阵乘输入的几何物件，如果针对立方体，乘每个角点，找到立方体的新位置。
 
 #figure(
-  image("image/math-image41.png", width: 50%),
+  fig(tr.rotation-cube, width: 50%),
   caption: [旋转几何],
 )
 
@@ -1381,7 +1384,8 @@ $ P' = "ScaleFactor"(S) dot P $
 例如我们为了将一个立方体相对世界坐标原点缩放0.25，那么缩放矩阵如下：
 
 #figure(
-  image("image/math-image43.png", width: 100%),
+  grid(columns: (2fr, 1fr), gutter: 1em, align: horizon, fig(tr.scaling-cube), tr.scaling-matrix()),
+  kind: image,
   caption: [缩放几何],
 )
 
@@ -1393,14 +1397,14 @@ $ P' = "ScaleFactor"(S) dot P $
   #grid(
     columns: (2fr, 2fr, 2fr, 2fr),
     align: horizon,
-    [#image("image/math-image45.png", width: 50%)],
+    [#fig(tr.shear-xy, width: 100%)],
     [$​mat(
         1, redMath(0.5), 0, 0;
         0, 1, 0, 0;
         0, 0, 1, 0;
         0, 0, 0, 1
       )$],
-    [#image("image/math-image47.png", width: 50%)],
+    [#fig(tr.shear-zy, width: 100%)],
     [$​mat(
         1, 0, 0, 0;
         0, 1, 0, 0;
@@ -1413,14 +1417,14 @@ $ P' = "ScaleFactor"(S) dot P $
   #grid(
     columns: (2fr, 2fr, 2fr, 2fr),
     align: horizon,
-    [#image("image/math-image49.png", width: 50%)],
+    [#fig(tr.shear-yx, width: 100%)],
     [$​mat(
         1, 0, 0, 0;
         redMath(0.5), 1, 0, 0;
         0, 0, 1, 0;
         0, 0, 0, 1
       )$],
-    [#image("image/math-image50.png", width: 50%)],
+    [#fig(tr.shear-zx, width: 100%)],
     [$​mat(
         1, 0, 0, 0;
         0, 1, 0, 0;
@@ -1433,14 +1437,14 @@ $ P' = "ScaleFactor"(S) dot P $
   #grid(
     columns: (2fr, 2fr, 2fr, 2fr),
     align: horizon,
-    [#image("image/math-image32.png", width: 50%)],
+    [#fig(tr.shear-xz, width: 100%)],
     [$​mat(
         1, 0, redMath(0.5), 0;
         0, 1, 0, 0;
         0, 0, 1, 0;
         0, 0, 0, 1
       )$],
-    [#image("image/math-image33.png", width: 50%)],
+    [#fig(tr.shear-yz, width: 100%)],
     [$​mat(
         1, 0, 0, 0;
         0, 1, redMath(0.5), 0;
@@ -1454,7 +1458,8 @@ $ P' = "ScaleFactor"(S) dot P $
 镜像变换在直线或平面上创建对象的镜像。二维物体是通过一条直线镜像的，而三维物体是通过一个平面镜像的。请记住，镜像变换翻转了几何面的法线方向．
 
 #figure(
-  image("image/math-image98.png", width: 100%),
+  grid(columns: (2fr, 1fr), gutter: 1em, align: horizon, fig(tr.reflection-cube), tr.reflection-matrix()),
+  kind: image,
   caption: [使用世界坐标xy平面镜像变换的矩阵，面法向被翻转],
 )
 
@@ -1466,8 +1471,6 @@ $ P' = "ScaleFactor"(S) dot P $
 
 注： NURBS 曲线（下一章解释）使用控制点来定义曲线。投射一条曲线等于投射它的控制点。
 #footnote[译者注：有关Nurbs投影不变性的证明的扩展阐述可参考如下链接：https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/NURBS/NURBS-property.html]
-
-#pagebreak()
 
 #grid(
   columns: (2fr, 2fr, 2fr),
@@ -1516,7 +1519,7 @@ $ P' = "ScaleFactor"(S) dot P $
   gutter: 1em,
   [$ x=x(t)\ y=y(t)\ z= z(t) $其中：$t$是一个区间内的实数
   ],
-  [#image("image/math-image106.png", width: 75%)],
+  [#fig(cr.journey, width: 100%)],
 )
 
 我们之前学习过，直线的参数方程使用$t$定义如下：
@@ -1539,13 +1542,13 @@ $x$、$y$、$z$是自变量为区间内实数$t$的函数，$x’$、 $y’$、 
     $
       P = P' + t dot bold(arrow(v))
     $],
-  [#image("image/math-image108.png", width: 100%)],
+  [#fig(cr.parametric-line, width: 100%)],
 )
 
 另一个例子是圆。xy平面上圆的参数方程：中心位于原点$(0,0)$，角度参数$t$范围在0和 2𝜋 弧度之间。
 
 #grid(
-  columns: (2fr, 2fr),
+  columns: (1fr, 2.5fr),
   align: horizon,
   gutter: 1em,
   [
@@ -1559,7 +1562,7 @@ $x$、$y$、$z$是自变量为区间内实数$t$的函数，$x’$、 $y’$、 
       y \/ r = sin(t)
     $
   ],
-  [#image("image/math-image110.png", width: 100%)],
+  [#align(center)[#fig(cr.parametric-circle, width: 100%)]],
 )
 
 由于：
@@ -1585,14 +1588,14 @@ $ "t是一个介于0和1之间的实数。" $
 在这种情况下，$t$值的范围（0到1）被称为曲线区间或曲线域。如果$t$是区间外的值（小于0或大于1），则结果点$M$将位于线段$overline(A B)$之外。
 
 #figure(
-  image("image/math-image112.png", width: 100%),
+  fig(cr.line-domain, width: 80%),
   caption: [三维空间和参数区间中的线段的参数曲线],
 )
 
 同样的原理适用于任意的参数曲线。曲线上的任意一点都可以在定义曲线的参数区间内使用$t$值进行计算。区间的起始位置的值通常称为$t_0$，结束位置的值称为$t_1$。
 
 #figure(
-  image("image/math-image94.png", width: 50%),
+  fig(cr.curve-domain, width: 50%),
   caption: [三维空间（1）和参数区间（2）中的曲线],
 )
 
@@ -1602,14 +1605,14 @@ $ "t是一个介于0和1之间的实数。" $
 #footnote[作者在本章中大量的重复使用和混用区间和域（*domain* and *interval* ）在意思相同的情况下，译者行文将统一使用*区间*一词。]
 
 #figure(
-  image("image/math-image95.png", width: 75%),
+  fig(cr.arbitrary-domain, width: 50%),
   caption: [曲线区间介于任意两数之间],
 )
 
 更改曲线区间被称为曲线的重新参数化。比如，一个常见的操作是将曲线区间更改为(0 to 1)。曲线的重新参数化不会影响到曲线形状。就如通过跑步代替走路改变路径上的时间并不会改变路径形状本身一样。
 
 #figure(
-  image("image/math-image96.png", width: 75%),
+  fig(cr.normalized-domain, width: 50%),
   caption: [归一化曲线区间到0到1],
 )
 
@@ -1622,14 +1625,14 @@ $ "t是一个介于0和1之间的实数。" $
 我们可以将曲线的均匀参数化视为以恒定速度行进的路径。两点连成的一阶直线就是一个示例，其中相等的参数间隔转换为曲线上相等的长度间隔。这是一种特殊情况，其中相等的参数间隔在三维曲线上计算为相等的间隔。
 
 #figure(
-  image("image/math-image79.png", width: 75%),
+  fig(cr.uniform-evaluation, width: 75%),
   caption: [一阶直线相等的参数间隔计算为相等的曲线长度],
 )
 
 但速度更可能随着路径变化。假设走一条路需要30分钟，那么很难恰巧在第15分钟走完路程的一半。图30展示了这种情况，相等的参数间隔在三维曲线上有不一致的长度。
 
 #figure(
-  image("image/math-image81.png", width: 75%),
+  fig(cr.nonuniform-evaluation, width: 75%),
   caption: [相等的参数间隔通常不会转换为曲线上的相等距离],
 )
 
@@ -1641,7 +1644,7 @@ $ "t是一个介于0和1之间的实数。" $
 #footnote[译者注：在日常和学术交流中，切向量和切线经常混用，严格意义上切向量仅是曲线上该点的方向，但是切线还隐含了该向量从曲线上当前点出发的含义。在本书中两者概念并不做严格区分。]
 
 #figure(
-  image("image/math-image83.png", width: 50%),
+  fig(cr.curve-tangents, width: 75%),
   caption: [曲线的切线],
 )
 
@@ -1650,28 +1653,28 @@ $ "t是一个介于0和1之间的实数。" $
 Hermite和Bezier曲线是由四个参数确定的三次多项式曲线的两个示例。Hermite曲线由的两个端点和两个切向量确定，而Bezier曲线由四个点定义。虽然它们在数学上有所不同，但它们具有相似的特征和局限性。
 
 #figure(
-  image("image/math-image85.png", width: 75%),
+  fig(cr.cubic-comparison, width: 75%),
   caption: [三次多项式曲线：Bezier曲线（左）和Hermite曲线（右）],
 )
 
 大多数情况下，曲线由多个曲线段组成，这就要求我们制作分段的三次曲线。下面是分段Bezier曲线的图示，该曲线使用七个点创建了两端三次曲线。请注意，曲线仅是连接到一起，并不平滑连续。
 
 #figure(
-  image("image/math-image87.png", width: 75%),
+  fig(cr.joined-bezier, width: 100%),
   caption: [两个Bezier曲线段共用端点],
 )
 
 尽管Hermite曲线使用同Bezier曲线相同数量的参数（四个参数定义一条曲线），但它们提供了曲线切线的附加信息，这些信息也可以与下一条曲线共享，以创建更平滑的曲线，同时减少总存储空间，如下所示。
 
 #figure(
-  image("image/math-image88.png", width: 75%),
+  fig(cr.joined-hermite, width: 100%),
   caption: [两个Hermite曲线段共用一个点和一个切线],
 )
 
 非均匀有理 B 样条曲线（NURBS）是一种强大的曲线表示，可保持更平滑、更连续的曲线。曲线段之间共享更多控制点，以更少的存储空间实现更平滑的曲线。
 
 #figure(
-  image("image/math-image90.png", width: 75%),
+  fig(cr.nurbs-spans, width: 100%),
   caption: [两个3次NURBS曲线段共享三个控制点。],
 )
 
@@ -1708,7 +1711,7 @@ de Casteljau 算法以其发明者 Paul de Casteljau 的名字命名，使用递
 
     + 在线段$overline(P Q)$上找到$t$对应的点$R$。
   ],
-  [#image("image/math-image72.png", width: 100%)],
+  [#fig(cr.casteljau)],
 )
 
 == NURBS曲线
