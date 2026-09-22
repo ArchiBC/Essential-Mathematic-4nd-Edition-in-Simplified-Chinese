@@ -1,5 +1,6 @@
 #import "@preview/ilm:2.1.1": *
 #import "@preview/pinit:0.2.2": *
+#import "image.typ" as img
 
 #set text(
   font: (
@@ -117,7 +118,7 @@ $ bold(arrow(v)) = lr(chevron.l 5, 0, 0 chevron.r) $
 为了表示这个向量，我们需要一个坐标系内的起始点。例如，下图中的所有箭头都是一个相同向量的等价表示，尽管它们位于不同的位置。
 
 #figure(
-  image("image/math-image169.png", width: 50%),
+  img.vector-equivalent(),
   caption: [三维坐标系中的向量表示],
 )
 
