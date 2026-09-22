@@ -65,7 +65,7 @@
 
     本版译本使用Typst重新编译。使用ilm模板。
 
-    #align(right)[——ArchiBC 中建五局设计技术科研院]
+    #align(right)[——ArchiBC]
 
     #blockquote[
       = 版权信息：
@@ -97,7 +97,7 @@
 
 向量表示一个有长度和方向的量，例如速度和力。三维坐标系下向量用三个有序实数表示，如下所示：
 
-$bold(arrow(v)) = lr(angle.l a_1, a_2, a_3 angle.r)$
+$bold(arrow(v)) = lr(chevron.l a_1, a_2, a_3 chevron.r)$
 
 == 向量的表示
 
@@ -107,7 +107,7 @@ $bold(arrow(v)) = lr(angle.l a_1, a_2, a_3 angle.r)$
 
 例如，如果我们有一个向量在三维坐标系中平行于x轴，并且长度是5个单位我们可以写出这个向量：
 
-$ bold(arrow(v)) = lr(angle.l 5, 0, 0 angle.r) $
+$ bold(arrow(v)) = lr(chevron.l 5, 0, 0 chevron.r) $
 
 为了表示这个向量，我们需要一个坐标系内的起始点。例如，下图中的所有箭头都是一个相同向量的等价表示，尽管它们位于不同的位置。
 
@@ -116,7 +116,7 @@ $ bold(arrow(v)) = lr(angle.l 5, 0, 0 angle.r) $
   caption: [三维坐标系中的向量表示],
 )
 
-#blockquote[给定一个3D向量$bold(arrow(v) = lr(angle.l a_1 \, a_2 \, a_3 angle.r))$，向量的分量$a_1,a_2,a_3$是实数，所有的从点$A(x,y,z)$到点$B(x+a_1,y+a_2,z+a_3)$的线段都是向量$bold(arrow(v))$的等价表示。]
+#blockquote[给定一个3D向量$bold(arrow(v) = lr(chevron.l a_1 \, a_2 \, a_3 chevron.r))$，向量的分量$a_1,a_2,a_3$是实数，所有的从点$A(x,y,z)$到点$B(x+a_1,y+a_2,z+a_3)$的线段都是向量$bold(arrow(v))$的等价表示。]
 
 因此，我们如何定义代表给定向量的线段的结束点呢，我们先定义起始点$A$,令:
 
@@ -124,7 +124,7 @@ $ A=(1,2,3) $
 
 和一个向量:
 
-$ bold(arrow(v))=lr(angle.l 5, 6, 7angle.r) $
+$ bold(arrow(v))=lr(chevron.l 5, 6, 7chevron.r) $
 
 那么结束点$B$对应的向量应该通过起始点和向量$bold(arrow(v))$的分量加和得到。
 
@@ -141,7 +141,7 @@ $
 
 === 位置向量
 
-一种特殊的向量表示方法使用 *origin point(0,0,0)* 作为向量的起始点，那么位置向量$bold(arrow(v))=lr(angle.l a_1, a_2, a_3angle.r)$能够被 *原点* 和结束点$B$构成的线段表示。由此得到：
+一种特殊的向量表示方法使用 *origin point(0,0,0)* 作为向量的起始点，那么位置向量$bold(arrow(v))=lr(chevron.l a_1, a_2, a_3chevron.r)$能够被 *原点* 和结束点$B$构成的线段表示。由此得到：
 
 $
   bold("origin point")=(0,0,0) \
@@ -153,14 +153,14 @@ $
   caption: [位置向量，端点坐标等于向量坐标],
 )
 
-#blockquote[一个给定向量的位置向量$bold(arrow(v)) = lr(angle.l a_1 \, a_2 \, a_3 angle.r)$能被从原点到点$(a_1,a_2,a_3)$的特殊线段表示。]
+#blockquote[一个给定向量的位置向量$bold(arrow(v)) = lr(chevron.l a_1 \, a_2 \, a_3 chevron.r)$能被从原点到点$(a_1,a_2,a_3)$的特殊线段表示。]
 
 === 向量和点
 
 不要混淆向量和点，他们是非常不同的概念，正如我们之前所说，向量表示具有长度和方向的量，但点表示位置。例如，北方是一个向量，北极是一个位置（点）。如果我们有一个向量和一个点具有相同的分量，例如：
 
 $
-  bold(arrow(v))=lr(angle.l 3, 1, 0angle.r)\
+  bold(arrow(v))=lr(chevron.l 3, 1, 0chevron.r)\
   P=(3,1,0)
 $
 
@@ -176,12 +176,12 @@ $
 正如前面所说，向量有长度，我们使用$abs(bold(arrow(a)))$来表示给定向量$bold(arrow(a))$的长度,例如：
 
 $
-  bold(arrow(a))=lr(angle.l 4, 3, 0angle.r) \
+  bold(arrow(a))=lr(chevron.l 4, 3, 0chevron.r) \
   bold(arrow(a))=sqrt(4^2+3^2+0^2) \
   abs(bold(arrow(a))) = 5
 $
 
-一般来说，向量$bold(arrow(a))=lr(angle.l a_1, a_2, a_3angle.r)$的长度的计算如下：
+一般来说，向量$bold(arrow(a))=lr(chevron.l a_1, a_2, a_3chevron.r)$的长度的计算如下：
 
 $ abs(bold(arrow(a)))=sqrt((a_1)^2+(a_2)^2+(a_3)^2) $
 
@@ -199,7 +199,7 @@ $ abs(bold(arrow(a)))=sqrt((a_1)^2+(a_2)^2+(a_3)^2) $
 要计算一个单位向量，需要找到需要计算向量的长度，并且将向量的分量除以向量长度。例如：
 
 $
-  bold(arrow(a))=lr(angle.l 4, 3, 0angle.r) \
+  bold(arrow(a))=lr(chevron.l 4, 3, 0chevron.r) \
   bold(arrow(a))=sqrt(4^2+3^2+0^2) \
   abs(bold(arrow(a))) = "5单位长度"
 $
@@ -207,8 +207,8 @@ $
 如果$bold(arrow(b))$是$bold(arrow(a))$的单位向量，那么：
 
 $
-  bold(arrow(b))=lr(angle.l 4 / 5, 3 / 5, 0 / 5angle.r) \
-  bold(arrow(b))=lr(angle.l 0.8, 0.6, 0angle.r) \
+  bold(arrow(b))=lr(chevron.l 4 / 5, 3 / 5, 0 / 5chevron.r) \
+  bold(arrow(b))=lr(chevron.l 0.8, 0.6, 0chevron.r) \
   bold(arrow(a))=sqrt(0.8^2+0.6^2+0^2) \
   bold(arrow(a))=sqrt(0.64+0.36+0) \
   abs(bold(arrow(b))) = "1单位长度"
@@ -217,8 +217,8 @@ $
 一般的:
 
 $
-  bold(arrow(a))=lr(angle.l a_1, a_2, a_3 angle.r) \
-  bold(arrow(a))"的单位向量"=lr(angle.l a_1 / abs(bold(arrow(a))), a_2 / abs(bold(arrow(a))), a_3 / abs(bold(arrow(a)))angle.r)
+  bold(arrow(a))=lr(chevron.l a_1, a_2, a_3 chevron.r) \
+  bold(arrow(a))"的单位向量"=lr(chevron.l a_1 / abs(bold(arrow(a))), a_2 / abs(bold(arrow(a))), a_3 / abs(bold(arrow(a)))chevron.r)
 $
 
 #figure(
@@ -233,9 +233,9 @@ $
 向量的标量运算就是一个一个向量乘以一个实数。例如：
 
 $
-  bold(arrow(a))=lr(angle.l 4, 3, 0angle.r)\
-  2 dot bold(arrow(a))=lr(angle.l 2 times 4, 2 times 3, 0angle.r)\
-  2 dot bold(arrow(a))=lr(angle.l 8, 6, 0 angle.r)
+  bold(arrow(a))=lr(chevron.l 4, 3, 0chevron.r)\
+  2 dot bold(arrow(a))=lr(chevron.l 2 times 4, 2 times 3, 0chevron.r)\
+  2 dot bold(arrow(a))=lr(chevron.l 8, 6, 0 chevron.r)
 $
 
 #figure(
@@ -243,9 +243,9 @@ $
   caption: [向量标量运算],
 )
 
-一般的：给定向量$bold(arrow(a))=lr(angle.l a_1, a_2, a_3angle.r)$和一个实数$t$
+一般的：给定向量$bold(arrow(a))=lr(chevron.l a_1, a_2, a_3chevron.r)$和一个实数$t$
 
-$ t dot bold(arrow(a))=lr(angle.l t dot a_1, t dot a_2, t dot a_3 angle.r) $
+$ t dot bold(arrow(a))=lr(chevron.l t dot a_1, t dot a_2, t dot a_3 chevron.r) $
 
 === 向量加法
 
@@ -256,10 +256,10 @@ $ t dot bold(arrow(a))=lr(angle.l t dot a_1, t dot a_2, t dot a_3 angle.r) $
 例如，我们有两个向量：
 
 $
-  bold(arrow(a))=lr(angle.l 1, 2, 0 angle.r) \
-  bold(arrow(b))=lr(angle.l 4, 1, 3 angle.r) \
-  bold(arrow(a))+bold(arrow(b))=lr(angle.l 1+4, 2+1, 0+3 angle.r) \
-  bold(arrow(a))+bold(arrow(b))=lr(angle.l 5, 3, 3 angle.r) \
+  bold(arrow(a))=lr(chevron.l 1, 2, 0 chevron.r) \
+  bold(arrow(b))=lr(chevron.l 4, 1, 3 chevron.r) \
+  bold(arrow(a))+bold(arrow(b))=lr(chevron.l 1+4, 2+1, 0+3 chevron.r) \
+  bold(arrow(a))+bold(arrow(b))=lr(chevron.l 5, 3, 3 chevron.r) \
 $
 
 #figure(
@@ -270,9 +270,9 @@ $
 一般来说，两个向量相加的运算如下：
 
 $
-  bold(arrow(a))&=lr(angle.l a_1, a_2, a_3 angle.r) \
-  bold(arrow(b))&=lr(angle.l b_1, b_2, b_3 angle.r) \
-  bold(arrow(a))+bold(arrow(b))&=lr(angle.l a_1+b_1, a_2+b_2, a_3+b_3 angle.r)
+  bold(arrow(a))&=lr(chevron.l a_1, a_2, a_3 chevron.r) \
+  bold(arrow(b))&=lr(chevron.l b_1, b_2, b_3 chevron.r) \
+  bold(arrow(a))+bold(arrow(b))&=lr(chevron.l a_1+b_1, a_2+b_2, a_3+b_3 chevron.r)
 $
 
 向量相加对于找到两个或者更多向量的平均方向非常有用。在这种情况下，我们通常使用相同长度的向量。下面是一个例子展示了使用相同长度向量和不同长度向量加和的区别。
@@ -287,17 +287,17 @@ $
 向量减法是两个向量的运算并且得到第三个向量，我们通过向量分量相减来实现向量的减法。例如，如果我们有两个向量$bold(arrow(a))$和$bold(arrow(b))$，并且我们令$bold(arrow(a))$减去$bold(arrow(b))$，那么：
 
 $
-  bold(arrow(a))&=lr(angle.l 1, 2, 0 angle.r) \
-  bold(arrow(b))&=lr(angle.l 4, 1, 4 angle.r) \
-  bold(arrow(a))-bold(arrow(b))&=lr(angle.l 1-4, 2-1, 0-4 angle.r) \
-  bold(arrow(a))-bold(arrow(b))&=lr(angle.l -3, 1, -4 angle.r) = bold(arrow(b a))
+  bold(arrow(a))&=lr(chevron.l 1, 2, 0 chevron.r) \
+  bold(arrow(b))&=lr(chevron.l 4, 1, 4 chevron.r) \
+  bold(arrow(a))-bold(arrow(b))&=lr(chevron.l 1-4, 2-1, 0-4 chevron.r) \
+  bold(arrow(a))-bold(arrow(b))&=lr(chevron.l -3, 1, -4 chevron.r) = bold(arrow(b a))
 $
 
 如果我们令$bold(arrow(b))$减去$bold(arrow(a))$，我们会得到不同的结果：
 
 $
-  bold(arrow(b))-bold(arrow(a))&=lr(angle.l 4-1, 1-2, 4-0 angle.r) \
-  &=lr(angle.l 3, -1, -4 angle.r) \
+  bold(arrow(b))-bold(arrow(a))&=lr(chevron.l 4-1, 1-2, 4-0 chevron.r) \
+  &=lr(chevron.l 3, -1, -4 chevron.r) \
   &= bold(arrow(a b))
 $
 
@@ -311,9 +311,9 @@ $
 一般来说，如果我们有两个向量$bold(arrow(a))$和$bold(arrow(b))$，那么$bold(arrow(a))-bold(arrow(b))$向量的计算如下：
 
 $
-  bold(arrow(a))&=lr(angle.l a_1, a_2, a_3 angle.r) \
-  bold(arrow(b))&=lr(angle.l b_1, b_2, b_3 angle.r) \
-  bold(arrow(a))-bold(arrow(b))&=lr(angle.l a_1-b_1, a_2-b_2, a_3-b_3 angle.r) = bold(arrow(b a))
+  bold(arrow(a))&=lr(chevron.l a_1, a_2, a_3 chevron.r) \
+  bold(arrow(b))&=lr(chevron.l b_1, b_2, b_3 chevron.r) \
+  bold(arrow(a))-bold(arrow(b))&=lr(chevron.l a_1-b_1, a_2-b_2, a_3-b_3 chevron.r) = bold(arrow(b a))
 $
 
 向量减法通常用于找到两个点之间的向量，所以如果我们需要找到一个从位置向量$bold(arrow(b))$结束点到位置向量$bold(arrow(a))$结束点的向量，我们就会使用向量减法令$bold(arrow(a))-bold(arrow(b))$，如图11所示：
@@ -351,7 +351,7 @@ $
 
 向量点积是一个两个向量得到一个实数的运算。例如，如果我们有两个向量$bold(arrow(a))$和$bold(arrow(b))$
 
-$ bold(arrow(a))=lr(angle.l 1, 2, 3 angle.r) space , space bold(arrow(b))=lr(angle.l 5, 6, 7 angle.r) $
+$ bold(arrow(a))=lr(chevron.l 1, 2, 3 chevron.r) space , space bold(arrow(b))=lr(chevron.l 5, 6, 7 chevron.r) $
 
 那么，点积是向量各分量乘积的和：
 ​$ bold(arrow(a)) dot bold(arrow(b))=1*5+2*6+3*7 \
@@ -360,7 +360,7 @@ bold(arrow(a)) dot bold(arrow(b))=38 $
 通常来说，给两个向量$bold(arrow(a))$和$bold(arrow(b))$：
 
 $
-  bold(arrow(a))=lr(angle.l a_1, a_2, a_3 angle.r)space , space bold(arrow(b))=lr(angle.l b_1, b_2, b_3 angle.r)\
+  bold(arrow(a))=lr(chevron.l a_1, a_2, a_3 chevron.r)space , space bold(arrow(b))=lr(chevron.l b_1, b_2, b_3 chevron.r)\
   bold(arrow(a)) dot bold(arrow(b))=a_1 dot b_1+a_2 dot b_2+a_3 dot b_3
 $
 
@@ -374,14 +374,14 @@ $
 当计算两个单位向量的点积时，结果在-1到1的闭区间上。例如：
 
 $
-  bold(arrow(a))=lr(angle.l 1, 0, 0 angle.r) space , space bold(arrow(b))=lr(angle.l 0.6, 0.8, 0 angle.r) \
+  bold(arrow(a))=lr(chevron.l 1, 0, 0 chevron.r) space , space bold(arrow(b))=lr(chevron.l 0.6, 0.8, 0 chevron.r) \
   bold(arrow(a)) dot bold(arrow(b))=1 dot 0.6+0 dot 0.8+0 dot 0 = 0.6
 $
 
 另外向量和向量自身的点积是向量长度的平方。例如：
 
 $
-  bold(arrow(a))=lr(angle.l 0, 3, 4 angle.r) \
+  bold(arrow(a))=lr(chevron.l 0, 3, 4 chevron.r) \
   bold(arrow(a)) dot bold(arrow(a)) = 0 dot 0 + 3 dot 3 +4 dot 4 = 25
 $
 
@@ -416,15 +416,15 @@ $
 例如我们计算两个正交向量——x轴单位向量和y轴单位向量的点积，结果为0。
 
 $
-  bold(arrow(x))=lr(angle.l 1, 0, 0 angle.r) space , space bold(arrow(y))=lr(angle.l 0, 1, 0 angle.r) \
+  bold(arrow(x))=lr(chevron.l 1, 0, 0 chevron.r) space , space bold(arrow(y))=lr(chevron.l 0, 1, 0 chevron.r) \
   bold(arrow(x)) dot bold(arrow(y))=1 dot 0+0 dot 1+0 dot 0 = 0
 $
 
 点积和一个向量到另一个向量的投影长度也有关系。例如：
 
 $
-  bold(arrow(a))=lr(angle.l 5, 2, 0 angle.r) space , space bold(arrow(b))=lr(angle.l 9, 0, 0 angle.r) \
-  "unit" bold(arrow(b)) = lr(angle.l 1, 0, 0 angle.r)\
+  bold(arrow(a))=lr(chevron.l 5, 2, 0 chevron.r) space , space bold(arrow(b))=lr(chevron.l 9, 0, 0 chevron.r) \
+  "unit" bold(arrow(b)) = lr(chevron.l 1, 0, 0 chevron.r)\
   bold(arrow(a)) dot "unit"bold(arrow(b))=5 dot 1+2 dot 0+0 dot 0 = 5
 $
 
@@ -467,20 +467,20 @@ $ "pL"=abs(bold(arrow(a))) dot cos theta = bold(arrow(a)) dot "unit" bold(arrow(
 例如，如果有两个在XY平面上的向量，则他们的叉积是一个垂直于XY平面的向量，方向为正或负的Z轴方向。
 
 $
-  bold(arrow(a))=lr(angle.l 3, 1, 0 angle.r) space , space bold(arrow(b))=lr(angle.l 1, 2, 0 angle.r)
+  bold(arrow(a))=lr(chevron.l 3, 1, 0 chevron.r) space , space bold(arrow(b))=lr(chevron.l 1, 2, 0 chevron.r)
 $
 $
-  bold(arrow(a)) times bold(arrow(b))&=lr(angle.l (1 dot 0-0 dot 2), (0 dot 1-3 dot 0), (3 dot 2-1 dot 1) angle.r)\
-  &=lr(angle.l 0, 0, 5 angle.r)
+  bold(arrow(a)) times bold(arrow(b))&=lr(chevron.l (1 dot 0-0 dot 2), (0 dot 1-3 dot 0), (3 dot 2-1 dot 1) chevron.r)\
+  &=lr(chevron.l 0, 0, 5 chevron.r)
 $
 
 #blockquote[向量$bold(arrow(a)) times bold(arrow(b))$垂直于$bold(arrow(a))$和$bold(arrow(b))$。]
 
 你可能永远不需要手工计算两个向量的叉积，但如果你对如何计算有兴趣，请读下一节，否则可以跳过，叉积是用行列式进行定义的。以下是如何使用标准基向量进行行列式的简单示例。
 #align(center)[
-  $#text(red)[$i = lr(angle.l 1, 0, 0 angle.r)$]space,space
-  #text(blue)[$j = lr(angle.l 0, 1, 0 angle.r)$]space,space
-  #text(green)[$k = lr(angle.l 0, 0, 1 angle.r)$]$
+  $#text(red)[$i = lr(chevron.l 1, 0, 0 chevron.r)$]space,space
+  #text(blue)[$j = lr(chevron.l 0, 1, 0 chevron.r)$]space,space
+  #text(green)[$k = lr(chevron.l 0, 0, 1 chevron.r)$]$
 
   #block[
     #set math.mat(delim: ("|", none), gap: 1.2em)
@@ -503,7 +503,7 @@ $
   ]
 ]
 
-两个向量$bold(arrow(a))=lr(angle.l a_1, a_2, a_3angle.r)$和$bold(arrow(b))=lr(angle.l b_1, b_2, b_3 angle.r)$的叉积使用上图计算如下
+两个向量$bold(arrow(a))=lr(chevron.l a_1, a_2, a_3chevron.r)$和$bold(arrow(b))=lr(chevron.l b_1, b_2, b_3 chevron.r)$的叉积使用上图计算如下
 #footnote[译者注：这个解释过于抽象，建议观看3Blue1Brown的线性代数视频加以理解。或者看看英文版本附带的视频。]
 :
 
@@ -514,8 +514,8 @@ $
   =&#text(red)[$i(a_2 dot b_3 - a_3 dot b_2)$] + #text(blue)[$j(a_3 dot b_1 -a_1 dot b_3)$]\
   & +#text(green)[$k(a_1 dot b_2 - a_2 dot b_1)$] \
   =&lr(
-    angle.l #text(red)[$a_2 dot b_3 - a_3 dot b_2$], #text(blue)[$a_3 dot b_1 - a_1 dot b_3$],
-    #text(green)[$a_1 dot b_2 - a_2 dot b_1$] angle.r
+    chevron.l #text(red)[$a_2 dot b_3 - a_3 dot b_2$], #text(blue)[$a_3 dot b_1 - a_1 dot b_3$],
+    #text(green)[$a_1 dot b_2 - a_2 dot b_1$] chevron.r
   )
 $
 
@@ -524,11 +524,11 @@ $
 两个向量之间的夹角和向量叉积的模有关。角度越小（正弦值越小），叉积的模越短。在向量叉积运算中，运算次序很重要，例如：
 
 $
-  bold(arrow(a))=lr(angle.l 1, 0, 0 angle.r) space , space bold(arrow(b))=lr(angle.l 0, 1, 0 angle.r)
+  bold(arrow(a))=lr(chevron.l 1, 0, 0 chevron.r) space , space bold(arrow(b))=lr(chevron.l 0, 1, 0 chevron.r)
 $
 $
-  bold(arrow(a)) times bold(arrow(b))&=lr(angle.l 0, 0, 1 angle.r)\
-  bold(arrow(b)) times bold(arrow(a))&=lr(angle.l 0, 0, -1 angle.r)
+  bold(arrow(a)) times bold(arrow(b))&=lr(chevron.l 0, 0, 1 chevron.r)\
+  bold(arrow(b)) times bold(arrow(a))&=lr(chevron.l 0, 0, -1 chevron.r)
 $
 
 #figure(
@@ -586,7 +586,7 @@ $theta$是向量$bold(arrow(a))$和$bold(arrow(b))$之间的夹角
 $
   &overline(L) = "line"&\
   \
-  &bold(arrow(v)) = lr(angle.l a, b, c angle.r) &"表示直线方向的单位向量" \
+  &bold(arrow(v)) = lr(chevron.l a, b, c chevron.r) &"表示直线方向的单位向量" \
   \
   &Q = (x_0,y_0,z_0) &"直线的基准点" \
   \
@@ -703,14 +703,14 @@ $ bold(arrow(n)) dot (bold(arrow(b)) - bold(arrow(a))) = 0 $
 如果：
 
 $
-  bold(arrow(n)) = lr(angle.l a, b, c angle.r)\
-  bold(arrow(b)) = lr(angle.l x, y, z angle.r)\
-  bold(arrow(a)) = lr(angle.l x_0, y_0, z_0 angle.r)
+  bold(arrow(n)) = lr(chevron.l a, b, c chevron.r)\
+  bold(arrow(b)) = lr(chevron.l x, y, z chevron.r)\
+  bold(arrow(a)) = lr(chevron.l x_0, y_0, z_0 chevron.r)
 $
 
 代入上式可得：
 
-$ lr(angle.l a, b, c angle.r) dot lr(angle.l x-x_0, y-y_0, z-z_0 angle.r) = 0 $
+$ lr(chevron.l a, b, c chevron.r) dot lr(chevron.l x-x_0, y-y_0, z-z_0 chevron.r) = 0 $
 
 解这个点积方程可以得到平面的隐式方程:
 
@@ -1232,7 +1232,7 @@ $
 
 - $P(x,y,z)$是一个给定的点
 
-- $bold(arrow(v))=lr(angle.l a, b, c angle.r)$是一个变换向量
+- $bold(arrow(v))=lr(chevron.l a, b, c chevron.r)$是一个变换向量
 
 那么我们有：
 ​$ P'(x) = x + a \
@@ -1245,7 +1245,7 @@ P'(z) = z + c $
 使用$[4 times 4]$矩阵进行变换（这被称作齐次坐标系下的变换），而不是$[3 times 3]$矩阵，可以表示包括移动在内的所有变换。平移矩阵的一般格式为：
 ​$ mat(1, 0, 0, redMath(a_1); 0, 1, 0, redMath(a_2); 0, 0, 1, redMath(a_3); 0, 0, 0, 1) $
 
-例如，为了使用向量 $bold(arrow(v)) lr(angle.l 2, 2, 2 angle.r)$ 移动点 $P(2,3,1)$ ,得到的点位置为：
+例如，为了使用向量 $bold(arrow(v)) lr(chevron.l 2, 2, 2 chevron.r)$ 移动点 $P(2,3,1)$ ,得到的点位置为：
 
 $ P’ = P + bold(arrow(v)) = (2+2, 3+2, 1+2) = (4, 5, 3) $
 
@@ -1520,7 +1520,7 @@ $
 
 其中：
 
-$x$、$y$、$z$是自变量为区间内实数$t$的函数，$x’$、 $y’$、 $z’$ 是线段上某一点的坐标，因为$bold(arrow(v)) lr(angle.l a, b, c angle.r)$平行与直线，$a$、 $b$、 $c$ 实际上定义了直线的方向，
+$x$、$y$、$z$是自变量为区间内实数$t$的函数，$x’$、 $y’$、 $z’$ 是线段上某一点的坐标，因为$bold(arrow(v)) lr(chevron.l a, b, c chevron.r)$平行与直线，$a$、 $b$、 $c$ 实际上定义了直线的方向，
 
 #grid(
   columns: (2fr, 2fr),
@@ -1786,7 +1786,7 @@ NURBS曲线的控制点是至少（阶数+1）个点的列表。改变 NURBS 曲
 
 一般来说，对于非周期曲线，节点向量的第一个值等于曲线区间最小值，节点向量第二个值等于区间最大值。
 
-例如一个具有七个控制点且曲线区间为0到4的开放的三阶NURBS曲线的节点列表类似于$lr(angle.l 0, 0, 0, 1, 2, 3, 4, 4, 4 angle.r)$
+例如一个具有七个控制点且曲线区间为0到4的开放的三阶NURBS曲线的节点列表类似于$lr(chevron.l 0, 0, 0, 1, 2, 3, 4, 4, 4 chevron.r)$
 
 #figure(
   image("image/figure-38a.png", width: 100%),
@@ -1819,7 +1819,7 @@ NURBS曲线的控制点是至少（阶数+1）个点的列表。改变 NURBS 曲
     align: horizon,
     [阶数=3 控制点数量 =7
 
-      节点列表$=lr(angle.l 0, 0, 0, 1, 2, 3, 4, 4, 4 angle.r)$
+      节点列表$=lr(chevron.l 0, 0, 0, 1, 2, 3, 4, 4, 4 chevron.r)$
 
       节点列表长度=9
 
@@ -1828,7 +1828,7 @@ NURBS曲线的控制点是至少（阶数+1）个点的列表。改变 NURBS 曲
 
     [阶数=3 控制点数量 =7
 
-      节点列表$=lr(angle.l 0, 0, 0, 1, 1, 1, 4, 4, 4 angle.r)$
+      节点列表$=lr(chevron.l 0, 0, 0, 1, 1, 1, 4, 4, 4 chevron.r)$
 
       节点列表长度=9
 
@@ -1872,7 +1872,7 @@ NURBS曲线的控制点是至少（阶数+1）个点的列表。改变 NURBS 曲
 
 一个既非均匀又有理的曲线示例是NURBS圆，下图是具有九个控制点节点列表长度为10的2阶曲线，曲线区间为0到4，节点间距在0和1之间来回横跳。
 
-- 节点列表$=lr(angle.l 0, 0, 1, 1, 2, 2, 3, 3, 4, 4 angle.r)$ —(内部的完全重复节点)
+- 节点列表$=lr(chevron.l 0, 0, 1, 1, 2, 2, 3, 3, 4, 4 chevron.r)$ —(内部的完全重复节点)
 
 - 节点间距 $= [0,1,0,1,0,1,0,1,0]$ — (非均匀)
 
