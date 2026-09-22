@@ -2,6 +2,9 @@
 #import "@preview/pinit:0.2.2": *
 #import "image.typ" as img
 
+// 插图：默认填满正文宽度（100%），用 width 控制缩放，且不影响线宽与点大小
+#let fig(draw-fn, width: 100%, units: 8) = layout(size => draw-fn(length: size.width * width / units))
+
 #set text(
   font: (
     (name: "New Computer Modern", covers: "latin-in-cjk"),
@@ -118,7 +121,7 @@ $ bold(arrow(v)) = lr(chevron.l 5, 0, 0 chevron.r) $
 为了表示这个向量，我们需要一个坐标系内的起始点。例如，下图中的所有箭头都是一个相同向量的等价表示，尽管它们位于不同的位置。
 
 #figure(
-  img.vector-equivalent(),
+  fig(img.vector-equivalent, width: 70%),
   caption: [三维坐标系中的向量表示],
 )
 
@@ -141,7 +144,7 @@ $
 $
 
 #figure(
-  image("image/math-image172.png", width: 50%),
+  fig(img.vector-point-relation, width: 70%),
   caption: [向量、向量起始点、向量结束位置所在点之间的关系],
 )
 
@@ -155,7 +158,7 @@ $
 $
 
 #figure(
-  image("image/math-image171.png", width: 50%),
+  fig(img.position-vector, width: 70%),
   caption: [位置向量，端点坐标等于向量坐标],
 )
 
@@ -173,7 +176,7 @@ $
 我们可以绘制如下向量和点：
 
 #figure(
-  image("image/math-image174.png", width: 50%),
+  fig(img.vector-and-point, width: 60%),
   caption: [向量定义方向和长度，点定义位置],
 )
 
@@ -192,7 +195,7 @@ $
 $ abs(bold(arrow(a)))=sqrt((a_1)^2+(a_2)^2+(a_3)^2) $
 
 #figure(
-  image("image/math-image173.png", width: 50%),
+  fig(img.vector-length, width: 30%),
   caption: [向量长度],
 )
 
@@ -228,7 +231,7 @@ $
 $
 
 #figure(
-  image("image/math-image176.png", width: 50%),
+  fig(img.unit-vector, width: 50%),
   caption: [单位向量等于一个单位长度的向量],
 )
 
@@ -245,7 +248,7 @@ $
 $
 
 #figure(
-  image("image/math-image175.png", width: 50%),
+  fig(img.scalar-multiplication, width: 50%),
   caption: [向量标量运算],
 )
 
