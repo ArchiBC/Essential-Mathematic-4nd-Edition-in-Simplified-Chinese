@@ -1,37 +1,10 @@
-#import "@preview/ilm:2.1.1": *
+#import "config.typ": book, fig, diagram-style, redMath, blockquote, comparison-grid, comparison-table
 #import "@preview/pinit:0.2.2": *
 #import "image.typ" as img
-#import "transforms.typ" as tr
-#import "curves.typ" as cr
+#import "@preview/cetz:0.5.2": canvas
+#import "@local/cetz-nurbs:0.1.0": nurbs
 
-// 插图：默认填满正文宽度（100%），用 width 控制缩放，且不影响线宽与点大小
-#let fig(draw-fn, width: 100%, units: 8) = layout(size => draw-fn(length: size.width * width / units))
-
-#set text(
-  font: (
-    (name: "New Computer Modern", covers: "latin-in-cjk"),
-    "Source Han Serif SC",
-  ),
-  lang: "zh",
-  region: "cn",
-)
-#show figure: set text(
-  font: (
-    (name: "New Computer Modern", covers: "latin-in-cjk"),
-    "Source Han Sans SC",
-  ),
-  size: 10pt,
-)
-
-#import "@preview/codly:1.3.0": *
-#import "@preview/codly-languages:0.1.8": *
-#show: codly-init.with()
-
-#codly(languages: codly-languages)
-
-
-
-#show: ilm.with(
+#show: book.with(
   title: [
 
     #image("image/math-logo.svg")
@@ -39,15 +12,7 @@
     *计算设计的基础数学*
   ],
   authors: "Rajaa Issa 著   ArchiBC 译",
-  paper-size: "a5",
-  date: none,
   abstract: [向设计专业人员介绍有效开发计算3D模型的基础数学概念。],
-  external-link-circle: false,
-  raw-text: (
-    font: ("Maple Mono", "Source Han Sans SC"),
-    size: 9pt,
-  ),
-  table-of-contents: (outline(depth: 2)),
   preface: [
 
     = 前言
@@ -85,25 +50,6 @@
   ],
 )
 
-//#set par(first-line-indent: (amount: 2em, all: true))
-#set math.equation(numbering: none)
-#show math.equation.where(block: true): it => align(left, pad(it, left: 2em))
-#show list: it => align(left, pad(it, left: 2em))
-#set math.mat(delim: "[")
-#let colMath(x, color) = text(fill: color)[$#x$]
-#let redMath(x) = colMath(x, red)
-
-#set grid.hline(stroke: 0.15pt)
-
-#show raw.line: set text(
-  font: (
-    "Maple Mono",
-    "Source Han Sans SC",
-  ),
-  weight: 300,
-)
-// Your content goes below.
-
 = 向量数学
 
 向量表示一个有长度和方向的量，例如速度和力。三维坐标系下向量用三个有序实数表示，如下所示：
@@ -140,9 +86,9 @@ $ bold(arrow(v))=lr(chevron.l 5, 6, 7chevron.r) $
 那么结束点$B$对应的向量应该通过起始点和向量$bold(arrow(v))$的分量加和得到。
 
 $
-  B&=A+bold(arrow(v)) \
-  &= (1+5,2+6,3+7) \
-  &= (6,8,10)
+  B & =A+bold(arrow(v)) \
+    & = (1+5,2+6,3+7) \
+    & = (6,8,10)
 $
 
 #figure(
@@ -233,7 +179,7 @@ $
 $
 
 #figure(
-  fig(img.unit-vector, width: 50%),
+  fig(img.unit-vector, width: 40%),
   caption: [单位向量等于一个单位长度的向量],
 )
 
@@ -281,9 +227,9 @@ $
 一般来说，两个向量相加的运算如下：
 
 $
-  bold(arrow(a))&=lr(chevron.l a_1, a_2, a_3 chevron.r) \
-  bold(arrow(b))&=lr(chevron.l b_1, b_2, b_3 chevron.r) \
-  bold(arrow(a))+bold(arrow(b))&=lr(chevron.l a_1+b_1, a_2+b_2, a_3+b_3 chevron.r)
+                 bold(arrow(a)) & =lr(chevron.l a_1, a_2, a_3 chevron.r) \
+                 bold(arrow(b)) & =lr(chevron.l b_1, b_2, b_3 chevron.r) \
+  bold(arrow(a))+bold(arrow(b)) & =lr(chevron.l a_1+b_1, a_2+b_2, a_3+b_3 chevron.r)
 $
 
 向量相加对于找到两个或者更多向量的平均方向非常有用。在这种情况下，我们通常使用相同长度的向量。下面是一个例子展示了使用相同长度向量和不同长度向量加和的区别。
@@ -298,18 +244,18 @@ $
 向量减法是两个向量的运算并且得到第三个向量，我们通过向量分量相减来实现向量的减法。例如，如果我们有两个向量$bold(arrow(a))$和$bold(arrow(b))$，并且我们令$bold(arrow(a))$减去$bold(arrow(b))$，那么：
 
 $
-  bold(arrow(a))&=lr(chevron.l 1, 2, 0 chevron.r) \
-  bold(arrow(b))&=lr(chevron.l 4, 1, 4 chevron.r) \
-  bold(arrow(a))-bold(arrow(b))&=lr(chevron.l 1-4, 2-1, 0-4 chevron.r) \
-  bold(arrow(a))-bold(arrow(b))&=lr(chevron.l -3, 1, -4 chevron.r) = bold(arrow(b a))
+                 bold(arrow(a)) & =lr(chevron.l 1, 2, 0 chevron.r) \
+                 bold(arrow(b)) & =lr(chevron.l 4, 1, 4 chevron.r) \
+  bold(arrow(a))-bold(arrow(b)) & =lr(chevron.l 1-4, 2-1, 0-4 chevron.r) \
+  bold(arrow(a))-bold(arrow(b)) & =lr(chevron.l -3, 1, -4 chevron.r) = bold(arrow(b a))
 $
 
 如果我们令$bold(arrow(b))$减去$bold(arrow(a))$，我们会得到不同的结果：
 
 $
-  bold(arrow(b))-bold(arrow(a))&=lr(chevron.l 4-1, 1-2, 4-0 chevron.r) \
-  &=lr(chevron.l 3, -1, -4 chevron.r) \
-  &= bold(arrow(a b))
+  bold(arrow(b))-bold(arrow(a)) & =lr(chevron.l 4-1, 1-2, 4-0 chevron.r) \
+                                & =lr(chevron.l 3, -1, -4 chevron.r) \
+                                & = bold(arrow(a b))
 $
 
 注意向量$bold(arrow(b))-bold(arrow(a))$和$bold(arrow(a))-bold(arrow(b))$长度相同但是方向相反。
@@ -322,9 +268,9 @@ $
 一般来说，如果我们有两个向量$bold(arrow(a))$和$bold(arrow(b))$，那么$bold(arrow(a))-bold(arrow(b))$向量的计算如下：
 
 $
-  bold(arrow(a))&=lr(chevron.l a_1, a_2, a_3 chevron.r) \
-  bold(arrow(b))&=lr(chevron.l b_1, b_2, b_3 chevron.r) \
-  bold(arrow(a))-bold(arrow(b))&=lr(chevron.l a_1-b_1, a_2-b_2, a_3-b_3 chevron.r) = bold(arrow(b a))
+                 bold(arrow(a)) & =lr(chevron.l a_1, a_2, a_3 chevron.r) \
+                 bold(arrow(b)) & =lr(chevron.l b_1, b_2, b_3 chevron.r) \
+  bold(arrow(a))-bold(arrow(b)) & =lr(chevron.l a_1-b_1, a_2-b_2, a_3-b_3 chevron.r) = bold(arrow(b a))
 $
 
 向量减法通常用于找到两个点之间的向量，所以如果我们需要找到一个从位置向量$bold(arrow(b))$结束点到位置向量$bold(arrow(a))$结束点的向量，我们就会使用向量减法令$bold(arrow(a))-bold(arrow(b))$，如图11所示：
@@ -442,7 +388,7 @@ $
 等于$bold(arrow(a))$到$bold(arrow(b))$的投影长度
 
 #figure(
-  fig(img.vector-projection, width: 75%),
+  fig(img.vector-projection, width: 50%),
   caption: [一个向量的投影长度是一个向量和另一个向量的单位向量的点积],
 )
 
@@ -471,7 +417,7 @@ $ "pL"=abs(bold(arrow(a))) dot cos theta = bold(arrow(a)) dot "unit" bold(arrow(
 叉积是两个向量得到第三个垂直于两向量的向量的运算。
 
 #figure(
-  fig(img.cross-product, width: 50%),
+  fig(img.cross-product, width: 40%),
   caption: [计算两个向量的叉积],
 )
 
@@ -481,8 +427,8 @@ $
   bold(arrow(a))=lr(chevron.l 3, 1, 0 chevron.r) space , space bold(arrow(b))=lr(chevron.l 1, 2, 0 chevron.r)
 $
 $
-  bold(arrow(a)) times bold(arrow(b))&=lr(chevron.l (1 dot 0-0 dot 2), (0 dot 1-3 dot 0), (3 dot 2-1 dot 1) chevron.r)\
-  &=lr(chevron.l 0, 0, 5 chevron.r)
+  bold(arrow(a)) times bold(arrow(b)) & =lr(chevron.l (1 dot 0-0 dot 2), (0 dot 1-3 dot 0), (3 dot 2-1 dot 1) chevron.r) \
+                                      & =lr(chevron.l 0, 0, 5 chevron.r)
 $
 
 #blockquote[向量$bold(arrow(a)) times bold(arrow(b))$垂直于$bold(arrow(a))$和$bold(arrow(b))$。]
@@ -500,7 +446,7 @@ $
       mat(
         i#pin("i"), j#pin("j"), k#pin("k"), i#pin("i2"), j#pin("j2")space;
         a_1, a_2, a_3, a_1, a_2;
-        b #pin("b11")_1, b #pin("b12")_2, b #pin("b13")_3, b #pin("b21")_1, b #pin("b22")_2;
+        b #pin("b11") _1, b #pin("b12") _2, b #pin("b13") _3, b #pin("b21") _1, b #pin("b22") _2;
         augment: #3
       )
     $
@@ -538,8 +484,8 @@ $
   bold(arrow(a))=lr(chevron.l 1, 0, 0 chevron.r) space , space bold(arrow(b))=lr(chevron.l 0, 1, 0 chevron.r)
 $
 $
-  bold(arrow(a)) times bold(arrow(b))&=lr(chevron.l 0, 0, 1 chevron.r)\
-  bold(arrow(b)) times bold(arrow(a))&=lr(chevron.l 0, 0, -1 chevron.r)
+  bold(arrow(a)) times bold(arrow(b)) & =lr(chevron.l 0, 0, 1 chevron.r) \
+  bold(arrow(b)) times bold(arrow(a)) & =lr(chevron.l 0, 0, -1 chevron.r)
 $
 
 #figure(
@@ -558,7 +504,6 @@ $ abs(bold(arrow(a)) times bold(arrow(b))) = abs(bold(arrow(a))) dot abs(bold(ar
 $theta$是向量$bold(arrow(a))$和$bold(arrow(b))$之间的夹角
 
 如果$bold(arrow(a))$和$bold(arrow(b))$是单位向量，那么我们可以说，两向量叉积的模等于向量夹角的正弦。也就是：
-
 ​$ abs(bold(arrow(a)) times bold(arrow(b))) = sin theta $
 
 两个向量叉积帮我们判断两个向量是否平行，当平行时叉积为零向量。
@@ -588,20 +533,20 @@ $theta$是向量$bold(arrow(a))$和$bold(arrow(b))$之间的夹角
 直线的矢量方程适用与三维建模应用和计算机图形学。
 
 #figure(
-  fig(img.line-vector-equation, width: 75%),
+  fig(img.line-vector-equation, width: 50%),
   caption: [直线的矢量方程],
 )
 
 例如，如果我们知道一条直线的方向和直线上的一个点，那么我们可以使用向量的方法，找到这条直线上的任意一点。如下所示：
 
 $
-  &overline(L) = "line"&\
+  & overline(L) = "line"                             &                          \
   \
-  &bold(arrow(v)) = lr(chevron.l a, b, c chevron.r) &"表示直线方向的单位向量" \
+  & bold(arrow(v)) = lr(chevron.l a, b, c chevron.r) & "表示直线方向的单位向量" \
   \
-  &Q = (x_0,y_0,z_0) &"直线的基准点" \
+  & Q = (x_0,y_0,z_0)                                &           "直线的基准点" \
   \
-  &P = (x,y,z) &"直线上任意一点"
+  & P = (x,y,z)                                      &         "直线上任意一点"
 $
 
 我们知道：
@@ -662,7 +607,7 @@ $ M = Q + t dot bold(arrow(a)) $
 $ M = Q + 0.5 dot bold(arrow(a)) $
 
 #figure(
-  fig(img.line-midpoint, width: 75%),
+  fig(img.line-midpoint, width: 40%),
   caption: [找到两点之间的中点],
 )
 
@@ -695,7 +640,7 @@ $
 $
 
 #figure(
-  fig(img.plane-vectors, width: 75%),
+  fig(img.plane-vectors, width: 50%),
   caption: [向量和平面],
 )
 
@@ -740,7 +685,7 @@ $ a dot (x-x_0)+b dot (y-y_0)+c dot (z-z_0)=0 $
 - 一个曲面
 - 一个点
 
-#align(center)[#image("image/math-image161.png", width: 75%)]
+#image("image/math-image161.png", width: 75%)
 
 *参数*：
 
@@ -761,7 +706,7 @@ $ a dot (x-x_0)+b dot (y-y_0)+c dot (z-z_0)=0 $
   #image("image/math-image164.png", width: 100%)
 
 上述步骤也可以使用其他语言解决，如使用GH的VB组件：
-#align(center)[#image("image/math-image165.png", width: 70%)]
+#image("image/math-image165.png", width: 70%)
 
 ```vb
 Private Sub RunScript(ByVal pt As Point3d, ByVal srf As Surface, ByRef A As Object)
@@ -789,7 +734,7 @@ End Sub
 
 使用GH的Python组件（利用RhinoScript库）：
 
-#align(center)[#image("image/math-image14.png", width: 70%)]
+#image("image/math-image14.png", width: 70%)
 
 ```python
 import rhinoscriptsyntax as rs #导入RhinoScript库
@@ -811,7 +756,7 @@ A = dir * normal
 ```
 使用GH的Python组件（只使用rhinocommon）：
 
-#align(center)[#image("image/math-image13.png", width: 70%)]
+#image("image/math-image13.png", width: 60%)
 
 ```python
 #找最近点
@@ -833,9 +778,9 @@ if found:
 ```
 
 使用GH的C\#组件：
-#align(center)[#image("image/math-image167.png", width: 70%)]
+#image("image/math-image167.png", width: 60%)
 
-```csharp
+```cs
 private void RunScript(Point3d pt, Surface srf, ref object A)
 {
   //声明变量
@@ -863,7 +808,7 @@ private void RunScript(Point3d pt, Surface srf, ref object A)
 
 下面的案例演示如何分解多重曲面。如图是最终分解的立方体的样子：
 
-#align(center)[#image("image/math-image15.jpg", width: 50%)]
+#image("image/math-image15.jpg", width: 40%)
 
 *输入*：
 
@@ -877,25 +822,25 @@ private void RunScript(Point3d pt, Surface srf, ref object A)
 - 需要分解的立方体面
 - 每个面移动的方向
 
-#align(center)[#image("image/math-image19.jpg", width: 50%)]
+#image("image/math-image19.jpg", width: 30%)
 
 当我们确定了需要的参数，就要通过拼凑逻辑步骤得到结果，并且整合到解决方案中。
 
 *解决方案*：
 
 + 使用*Box Properties*组件找到立方体的中心点：
-  #align(center)[#image("image/math-image21.png", width: 75%)]
+  #image("image/math-image21.png", width: 75%)
 + 使用*Deconstruct Brep*组件分解立方体的面：
-  #align(center)[#image("image/math-image23.png", width: 75%)]
+  #image("image/math-image23.png", width: 75%)
 + 一个麻烦的部分是确定移动面的方向。我们需要先找到每个面的中心，然后定义从立方体中心岛每个面中心的方向，如图：
-  #align(center)[#image("image/math-image25.png", width: 100%)]
+  #image("image/math-image25.png", width: 100%)
 + 一旦我们编写了所有参数的组件，我们就可以使用*move*组件以适当的方向移动面，只要确保将移动向量设置为需要的长度：
-  #align(center)[#image("image/math-image27.png", width: 100%)]
+  #image("image/math-image27.png", width: 100%)
 
 上述步骤也可以使用VB、C\#、Python语言解决。下面是解决方案。
 
 使用GH的VB组件：
-#align(center)[#image("image/math-image29.png", width: 75%)]
+#image("image/math-image29.png", width: 75%)
 
 ```vb
 Private Sub RunScript(ByVal box As Brep, ByVal dis As Double, ByRef A As Object)
@@ -943,7 +888,7 @@ Private Sub RunScript(ByVal box As Brep, ByVal dis As Double, ByRef A As Object)
 ```
 使用GH的Python组件（利用RhinoCommon库）：
 
-#align(center)[#image("image/math-image4.png", width: 75%)]
+#image("image/math-image4.png", width: 75%)
 
 ```python
 import Rhino
@@ -986,9 +931,9 @@ A = exploded_faces
 
 使用GH的C\#组件：
 
-#align(center)[#image("image/math-image2.png", width: 75%)]
+#image("image/math-image2.png", width: 75%)
 
-```csharp
+```cs
 private void RunScript(Brep box, double dis, ref object A)
 {
 
@@ -1034,13 +979,13 @@ private void RunScript(Brep box, double dis, ref object A)
 
 本实例将演示如何在两个输入点之间创建两个相切球体，结果如图：
 
-#align(center)[#image("image/math-image5.png", width: 50%)]
+#image("image/math-image5.png", width: 50%)
 
 *输入*：
 
 两个点$A$和$B$在三维坐标系。
 
-#align(center)[#image("image/math-image6.png", width: 30%)]
+#image("image/math-image6.png", width: 30%)
 
 *参数*：
 
@@ -1056,20 +1001,20 @@ private void RunScript(Brep box, double dis, ref object A)
 + 使用*Expression*组件在参数t的定义下定义$A B$之间点$D$，我们使用的表达式基于直线的向量方程：
   $ D=A+t dot (B-A) $
   获得$A B$之间的点，我们的表达式就是：$A+t dot (B-A)$；
-  #align(center)[#image("image/math-image8.png", width: 100%)]
+  #image("image/math-image8.png", width: 100%)
 
 + 使用*Expression*组件利用相同的表达式得到$C_1$和$C_2$；
-  #align(center)[#image("image/math-image9.png", width: 100%)]
+  #image("image/math-image9.png", width: 100%)
 
 + 使用*Distance*组件得到两个球体的半径$r_1$和$r_2$；
-  #align(center)[#image("image/math-image10.png", width: 100%)]
+  #image("image/math-image10.png", width: 100%)
 
 + 最后一步我们从*Plane*和半径创建球体。
-  #align(center)[#image("image/math-image54.png", width: 100%)]
+  #image("image/math-image54.png", width: 100%)
 
 使用GH的VB组件：
 
-#align(center)[#image("image/math-image56.png", width: 75%)]
+#image("image/math-image56.png", width: 75%)
 
 ```vb
 Private Sub RunScript(ByVal A As Point3d, ByVal B As Point3d, ByVal t As Double, ByRef S1 As Object, ByRef S2 As Object)
@@ -1099,7 +1044,7 @@ End Sub
 
 使用GH的Python组件：
 
-#align(center)[#image("image/math-image62.png", width: 75%)]
+#image("image/math-image62.png", width: 75%)
 
 ```python
 import Rhino
@@ -1124,9 +1069,9 @@ S2 = Rhino.Geometry.Sphere(C2, r2)
 
 使用GH的C\#组件：
 
-#align(center)[#image("image/math-image58.png", width: 75%)]
+#image("image/math-image58.png", width: 75%)
 
-```csharp
+```cs
 private void RunScript(Point3d A, Point3d B, double t, ref object S1, ref object S2)
 {
   //declare variables
@@ -1236,8 +1181,7 @@ $
 #grid(
   columns: (1fr, 1fr),
   align: center + horizon,
-  $ P' = P + bold(arrow(v)) $,
-  fig(tr.translation-vector),
+  $ P' = P + bold(arrow(v)) $, fig(img.translation-vector),
 )
 
 假设：
@@ -1273,12 +1217,12 @@ $
 类似的，任意几何物件都是通过构造平移矩阵乘点来平移的。例如我们有一个八个角点定义的立方体，我们想在x方向移动4个单位，y方向移动5单位，z方向移动3单位，我们必须用平移矩阵乘所有八个角点得到新的角点以此得到新的平移后的立方体。
 
 
-#grid(
+#comparison-grid(
   columns: (1fr, 2fr),
-  align: horizon,
+  gutter: 0pt,
   $ mat(1, 0, 0, 4; 0, 1, 0, 5; 0, 0, 1, 3; 0, 0, 0, 1) $,
   figure(
-    fig(tr.translation-cube, width: 75%),
+    fig(img.translation-cube, width: 75%),
     caption: [平移所有方框角点],
   ),
 )
@@ -1289,7 +1233,7 @@ $
   columns: (1fr, 2fr),
   gutter: 4em,
   [#v(1em)#h(2em) 本节介绍如何使用三角函数计算绕 z 轴和原点的旋转，然后推导旋转变换的一般矩阵格式。],
-  fig(tr.rotation-point, width: 75%),
+  fig(img.rotation-point, width: 75%),
 )
 
 在$x y$平面取一点P(x,y)并且旋转一个角度$$b$$. 我们由图易得：
@@ -1311,14 +1255,14 @@ $
 
   $ x' = d dot cos(a)cos(b) - d dot sin(a)sin(b) $
 
-  $ x' = d dot cos(a)cos(b) - d dot sin(a)sin(b) $
+  $ y' = d dot sin(a)cos(b) + d dot cos(a)sin(b) $
 ]
 
 由(1)和(2)得:
 
 $ x' = x dot cos(b) - y dot sin(b) $
 
-$ x' = x dot sin(b) - y dot cos(b) $
+$ y' = x dot sin(b) + y dot cos(b) $
 
 沿*世界坐标z轴*旋转b弧度的矩阵如下：
 ​$mat(
@@ -1329,18 +1273,18 @@ $ x' = x dot sin(b) - y dot cos(b) $
 )$
 
 沿*世界坐标x轴*旋转b弧度的矩阵如下：
-​$mat(
-  0, 0, 0, 0;
+$mat(
+  1, 0, 0, 0;
   0, redMath(cos space b), redMath(-sin space b), 0;
   0, redMath(sin space b), redMath(cos space b), 0;
   0, 0, 0, 1
 )$
 
-沿*世界坐标x轴*旋转b弧度的矩阵如下：
-​$mat(
-  0, 0, 0, 0;
-  0, redMath(cos space b), redMath(-sin space b), 0;
-  0, redMath(sin space b), redMath(cos space b), 0;
+沿*世界坐标y轴*旋转b弧度的矩阵如下：
+$mat(
+  redMath(cos space b), 0, redMath(sin space b), 0;
+  0, 1, 0, 0;
+  redMath(-sin space b), 0, redMath(cos space b), 0;
   0, 0, 0, 1
 )$
 
@@ -1356,7 +1300,7 @@ $ x' = x dot sin(b) - y dot cos(b) $
 + 将旋转矩阵乘输入的几何物件，如果针对立方体，乘每个角点，找到立方体的新位置。
 
 #figure(
-  fig(tr.rotation-cube, width: 50%),
+  fig(img.rotation-cube, width: 50%),
   caption: [旋转几何],
 )
 
@@ -1384,7 +1328,10 @@ $ P' = "ScaleFactor"(S) dot P $
 例如我们为了将一个立方体相对世界坐标原点缩放0.25，那么缩放矩阵如下：
 
 #figure(
-  grid(columns: (2fr, 1fr), gutter: 1em, align: horizon, fig(tr.scaling-cube), tr.scaling-matrix()),
+  comparison-grid(
+    columns: (1fr, 1fr),
+    fig(img.scaling-cube), img.scaling-matrix(),
+  ),
   kind: image,
   caption: [缩放几何],
 )
@@ -1394,63 +1341,63 @@ $ P' = "ScaleFactor"(S) dot P $
 三维的剪切是沿着某一个轴不变另外垂直的另外一个轴方向变化的变换。例如，沿 z 轴的剪切变换不会改变z轴的尺寸，但会改变x和y轴方向的尺寸．下面是一些例子：
 
 + 保持y轴方向不变，x、z方向剪切
-  #grid(
+  #comparison-grid(
     columns: (2fr, 2fr, 2fr, 2fr),
-    align: horizon,
-    [#fig(tr.shear-xy, width: 100%)],
+    gutter: 0pt,
+    [#fig(img.shear-xy)],
     [$​mat(
-        1, redMath(0.5), 0, 0;
-        0, 1, 0, 0;
-        0, 0, 1, 0;
-        0, 0, 0, 1
-      )$],
-    [#fig(tr.shear-zy, width: 100%)],
+      1, redMath(0.5), 0, 0;
+      0, 1, 0, 0;
+      0, 0, 1, 0;
+      0, 0, 0, 1
+    )$],
+    [#fig(img.shear-zy)],
     [$​mat(
-        1, 0, 0, 0;
-        0, 1, 0, 0;
-        0, redMath(0.5), 1, 0;
-        0, 0, 0, 1
-      )$],
+      1, 0, 0, 0;
+      0, 1, 0, 0;
+      0, redMath(0.5), 1, 0;
+      0, 0, 0, 1
+    )$],
   )
 
 + 保持x轴方向不变，y、z方向剪切：
-  #grid(
+  #comparison-grid(
     columns: (2fr, 2fr, 2fr, 2fr),
-    align: horizon,
-    [#fig(tr.shear-yx, width: 100%)],
+    gutter: 0pt,
+    [#fig(img.shear-yx)],
     [$​mat(
-        1, 0, 0, 0;
-        redMath(0.5), 1, 0, 0;
-        0, 0, 1, 0;
-        0, 0, 0, 1
-      )$],
-    [#fig(tr.shear-zx, width: 100%)],
+      1, 0, 0, 0;
+      redMath(0.5), 1, 0, 0;
+      0, 0, 1, 0;
+      0, 0, 0, 1
+    )$],
+    [#fig(img.shear-zx)],
     [$​mat(
-        1, 0, 0, 0;
-        0, 1, 0, 0;
-        redMath(0.5), 0, 1, 0;
-        0, 0, 0, 1
-      )$],
+      1, 0, 0, 0;
+      0, 1, 0, 0;
+      redMath(0.5), 0, 1, 0;
+      0, 0, 0, 1
+    )$],
   )
 
 + 保持z轴方向不变，x、y方向剪切：
-  #grid(
+  #comparison-grid(
     columns: (2fr, 2fr, 2fr, 2fr),
-    align: horizon,
-    [#fig(tr.shear-xz, width: 100%)],
+    gutter: 0pt,
+    [#fig(img.shear-xz)],
     [$​mat(
-        1, 0, redMath(0.5), 0;
-        0, 1, 0, 0;
-        0, 0, 1, 0;
-        0, 0, 0, 1
-      )$],
-    [#fig(tr.shear-yz, width: 100%)],
+      1, 0, redMath(0.5), 0;
+      0, 1, 0, 0;
+      0, 0, 1, 0;
+      0, 0, 0, 1
+    )$],
+    [#fig(img.shear-yz)],
     [$​mat(
-        1, 0, 0, 0;
-        0, 1, redMath(0.5), 0;
-        0, 0, 1, 0;
-        0, 0, 0, 1
-      )$],
+      1, 0, 0, 0;
+      0, 1, redMath(0.5), 0;
+      0, 0, 1, 0;
+      0, 0, 0, 1
+    )$],
   )
 
 === 镜像或翻转变换
@@ -1458,7 +1405,10 @@ $ P' = "ScaleFactor"(S) dot P $
 镜像变换在直线或平面上创建对象的镜像。二维物体是通过一条直线镜像的，而三维物体是通过一个平面镜像的。请记住，镜像变换翻转了几何面的法线方向．
 
 #figure(
-  grid(columns: (2fr, 1fr), gutter: 1em, align: horizon, fig(tr.reflection-cube), tr.reflection-matrix()),
+  comparison-grid(
+    columns: (1fr, 1fr),
+    fig(img.reflection-cube), img.reflection-matrix(),
+  ),
   kind: image,
   caption: [使用世界坐标xy平面镜像变换的矩阵，面法向被翻转],
 )
@@ -1472,38 +1422,36 @@ $ P' = "ScaleFactor"(S) dot P $
 注： NURBS 曲线（下一章解释）使用控制点来定义曲线。投射一条曲线等于投射它的控制点。
 #footnote[译者注：有关Nurbs投影不变性的证明的扩展阐述可参考如下链接：https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/NURBS/NURBS-property.html]
 
-#grid(
+#comparison-grid(
   columns: (2fr, 2fr, 2fr),
-  align: horizon,
-  gutter: 1em,
-  [#image("image/math-image100.png", width: 100%)],
-  [#image("image/math-image102.png", width: 100%)],
-  [#image("image/math-image104.png", width: 100%)],
+  [#fig(img.projection-xy)],
+  [#fig(img.projection-xz)],
+  [#fig(img.projection-yz)],
 
   [$
-      ​mat(
-        1, 0, 0, 0;
-        0, 1, 0, 0;
-        0, 0, redMath(0), 0;
-        0, 0, 0, 1
-      )
-    $],
+    ​mat(
+      1, 0, 0, 0;
+      0, 1, 0, 0;
+      0, 0, redMath(0), 0;
+      0, 0, 0, 1
+    )
+  $],
   [$
-      ​mat(
-        1, 0, 0, 0;
-        0, redMath(0), 0, 0;
-        0, 0, 1, 0;
-        0, 0, 0, 1
-      )
-    $],
+    ​mat(
+      1, 0, 0, 0;
+      0, redMath(0), 0, 0;
+      0, 0, 1, 0;
+      0, 0, 0, 1
+    )
+  $],
   [$
-      ​mat(
-        redMath(0), 0, 0, 0;
-        0, 1, 0, 0;
-        0, 0, 1, 0;
-        0, 0, 0, 1
-      )
-    $],
+    ​mat(
+      redMath(0), 0, 0, 0;
+      0, 1, 0, 0;
+      0, 0, 1, 0;
+      0, 0, 0, 1
+    )
+  $],
 )
 
 = 参数曲线和曲面
@@ -1513,13 +1461,11 @@ $ P' = "ScaleFactor"(S) dot P $
 我们可以用一些参数如$t$来描述参数曲线上点的位置的$x$、$y$、$z$，如下所示：
 
 
-#grid(
-  columns: (2fr, 2fr),
-  align: horizon,
-  gutter: 1em,
+#comparison-grid(
+  columns: (2fr, 1fr),
   [$ x=x(t)\ y=y(t)\ z= z(t) $其中：$t$是一个区间内的实数
   ],
-  [#fig(cr.journey, width: 100%)],
+  [#fig(img.journey)],
 )
 
 我们之前学习过，直线的参数方程使用$t$定义如下：
@@ -1534,23 +1480,19 @@ $
 
 $x$、$y$、$z$是自变量为区间内实数$t$的函数，$x’$、 $y’$、 $z’$ 是线段上某一点的坐标，因为$bold(arrow(v)) lr(chevron.l a, b, c chevron.r)$平行与直线，$a$、 $b$、 $c$ 实际上定义了直线的方向，
 
-#grid(
+#comparison-grid(
   columns: (2fr, 2fr),
-  align: horizon,
-  gutter: 1em,
   [由此我们可以使用一个介于实数$t_0$和$t_1$之间的参数$t$和一个沿线段方向的单位向量$bold(arrow(v))$来描述线段的参数方程：
     $
       P = P' + t dot bold(arrow(v))
     $],
-  [#fig(cr.parametric-line, width: 100%)],
+  [#fig(img.parametric-line, width: 80%)],
 )
 
 另一个例子是圆。xy平面上圆的参数方程：中心位于原点$(0,0)$，角度参数$t$范围在0和 2𝜋 弧度之间。
 
-#grid(
-  columns: (1fr, 2.5fr),
-  align: horizon,
-  gutter: 1em,
+#comparison-grid(
+  columns: (2fr, 1.5fr),
   [
     $
       x = r dot cos(t)\
@@ -1562,7 +1504,7 @@ $x$、$y$、$z$是自变量为区间内实数$t$的函数，$x’$、 $y’$、 
       y \/ r = sin(t)
     $
   ],
-  [#align(center)[#fig(cr.parametric-circle, width: 100%)]],
+  [#fig(img.parametric-circle)],
 )
 
 由于：
@@ -1588,14 +1530,14 @@ $ "t是一个介于0和1之间的实数。" $
 在这种情况下，$t$值的范围（0到1）被称为曲线区间或曲线域。如果$t$是区间外的值（小于0或大于1），则结果点$M$将位于线段$overline(A B)$之外。
 
 #figure(
-  fig(cr.line-domain, width: 80%),
+  fig(img.line-domain),
   caption: [三维空间和参数区间中的线段的参数曲线],
 )
 
 同样的原理适用于任意的参数曲线。曲线上的任意一点都可以在定义曲线的参数区间内使用$t$值进行计算。区间的起始位置的值通常称为$t_0$，结束位置的值称为$t_1$。
 
 #figure(
-  fig(cr.curve-domain, width: 50%),
+  fig(img.curve-domain, width: 70%),
   caption: [三维空间（1）和参数区间（2）中的曲线],
 )
 
@@ -1605,14 +1547,14 @@ $ "t是一个介于0和1之间的实数。" $
 #footnote[作者在本章中大量的重复使用和混用区间和域（*domain* and *interval* ）在意思相同的情况下，译者行文将统一使用*区间*一词。]
 
 #figure(
-  fig(cr.arbitrary-domain, width: 50%),
+  fig(img.arbitrary-domain, width: 70%),
   caption: [曲线区间介于任意两数之间],
 )
 
 更改曲线区间被称为曲线的重新参数化。比如，一个常见的操作是将曲线区间更改为(0 to 1)。曲线的重新参数化不会影响到曲线形状。就如通过跑步代替走路改变路径上的时间并不会改变路径形状本身一样。
 
 #figure(
-  fig(cr.normalized-domain, width: 50%),
+  fig(img.normalized-domain, width: 50%),
   caption: [归一化曲线区间到0到1],
 )
 
@@ -1625,14 +1567,14 @@ $ "t是一个介于0和1之间的实数。" $
 我们可以将曲线的均匀参数化视为以恒定速度行进的路径。两点连成的一阶直线就是一个示例，其中相等的参数间隔转换为曲线上相等的长度间隔。这是一种特殊情况，其中相等的参数间隔在三维曲线上计算为相等的间隔。
 
 #figure(
-  fig(cr.uniform-evaluation, width: 75%),
+  fig(img.uniform-evaluation, width: 75%),
   caption: [一阶直线相等的参数间隔计算为相等的曲线长度],
 )
 
 但速度更可能随着路径变化。假设走一条路需要30分钟，那么很难恰巧在第15分钟走完路程的一半。图30展示了这种情况，相等的参数间隔在三维曲线上有不一致的长度。
 
 #figure(
-  fig(cr.nonuniform-evaluation, width: 75%),
+  fig(img.nonuniform-evaluation, width: 75%),
   caption: [相等的参数间隔通常不会转换为曲线上的相等距离],
 )
 
@@ -1644,7 +1586,7 @@ $ "t是一个介于0和1之间的实数。" $
 #footnote[译者注：在日常和学术交流中，切向量和切线经常混用，严格意义上切向量仅是曲线上该点的方向，但是切线还隐含了该向量从曲线上当前点出发的含义。在本书中两者概念并不做严格区分。]
 
 #figure(
-  fig(cr.curve-tangents, width: 75%),
+  fig(img.curve-tangents, width: 50%),
   caption: [曲线的切线],
 )
 
@@ -1653,28 +1595,28 @@ $ "t是一个介于0和1之间的实数。" $
 Hermite和Bezier曲线是由四个参数确定的三次多项式曲线的两个示例。Hermite曲线由的两个端点和两个切向量确定，而Bezier曲线由四个点定义。虽然它们在数学上有所不同，但它们具有相似的特征和局限性。
 
 #figure(
-  fig(cr.cubic-comparison, width: 75%),
+  fig(img.cubic-comparison, width: 75%),
   caption: [三次多项式曲线：Bezier曲线（左）和Hermite曲线（右）],
 )
 
 大多数情况下，曲线由多个曲线段组成，这就要求我们制作分段的三次曲线。下面是分段Bezier曲线的图示，该曲线使用七个点创建了两端三次曲线。请注意，曲线仅是连接到一起，并不平滑连续。
 
 #figure(
-  fig(cr.joined-bezier, width: 100%),
+  fig(img.joined-bezier),
   caption: [两个Bezier曲线段共用端点],
 )
 
 尽管Hermite曲线使用同Bezier曲线相同数量的参数（四个参数定义一条曲线），但它们提供了曲线切线的附加信息，这些信息也可以与下一条曲线共享，以创建更平滑的曲线，同时减少总存储空间，如下所示。
 
 #figure(
-  fig(cr.joined-hermite, width: 100%),
+  fig(img.joined-hermite),
   caption: [两个Hermite曲线段共用一个点和一个切线],
 )
 
 非均匀有理 B 样条曲线（NURBS）是一种强大的曲线表示，可保持更平滑、更连续的曲线。曲线段之间共享更多控制点，以更少的存储空间实现更平滑的曲线。
 
 #figure(
-  fig(cr.nurbs-spans, width: 100%),
+  fig(img.shared-control-spans),
   caption: [两个3次NURBS曲线段共享三个控制点。],
 )
 
@@ -1694,10 +1636,8 @@ de Casteljau 算法以其发明者 Paul de Casteljau 的名字命名，使用递
 
 *解决方案*：
 
-#grid(
+#comparison-grid(
   columns: (3fr, 2fr),
-  align: horizon,
-  gutter: 1em,
   [
     + 在线段$overline(A B)$上找到$t$对应的点$M$。
 
@@ -1711,7 +1651,7 @@ de Casteljau 算法以其发明者 Paul de Casteljau 的名字命名，使用递
 
     + 在线段$overline(P Q)$上找到$t$对应的点$R$。
   ],
-  [#fig(cr.casteljau)],
+  [#fig(img.casteljau)],
 )
 
 == NURBS曲线
@@ -1719,7 +1659,8 @@ de Casteljau 算法以其发明者 Paul de Casteljau 的名字命名，使用递
 NURBS是一种数学上精确表示曲线的方式，具有直观的可编辑性。使用NURBS表示自由曲线曲面很容易并且其控制结构使得编辑变得容易并可控。
 
 #figure(
-  image("image/math-image74.png", width: 75%),
+  fig(img.control-structure),
+  kind: image,
   caption: [非均匀有理B样条及其控制结构],
 )
 
@@ -1733,21 +1674,55 @@ NURBS是一种数学上精确表示曲线的方式，具有直观的可编辑性
 
 曲线的阶数#footnote[译者注：曲线的阶数本质是曲线对应的有理多项式的次数。故在翻译时当形容多项式时会翻译成三次多项式曲线，在仅涉及曲线时会翻译成三阶Bezier曲线。在部分中文资料里会把Nurbs曲线的Order翻译为阶数，Rhino官方的资料里Order翻译为次数，其值为Degree+1。但又会和多项式的次数混淆。译者在这里不持立场，统一只使用Degree作为阶数而尽量不出现次数的概念（除非明确的涉及多项式的描述）。]是正整数，Rhino允许任何大于等于1阶的曲线。1、2、3和5阶曲线是最常用的，但是4阶和5阶以上的阶数在实际作业中并不常用，下面列出一些常见曲线及度数：
 
-#grid(
-  columns: (3fr, 2fr),
-  align: horizon,
-  gutter: 1em,
-  grid.hline(),
-  [*直线*和*多段线*是1阶的NURBS曲线。],
-  [#image("image/math-image75.png", width: 100%)],
-  grid.hline(),
-  [*圆*和*椭圆*是2阶的NURBS曲线。],
-  [#image("image/math-image77.png", width: 100%)],
-  grid.hline(),
-  [自由曲线通常表示为3阶或5阶曲线。],
-  [#image("image/math-image128.png", width: 100%)],
-  grid.hline(),
-)
+#{
+  comparison-grid(
+    columns: (3fr, 2fr),
+    grid.hline(),
+    [*直线*和*多段线*是1阶的NURBS曲线。],
+    pad(x: 2mm, y: 2mm)[#comparison-grid(
+      columns: (1fr, 1fr),
+      gutter: 0.5em,
+      [#fig(
+        (length: diagram-style.unit) => canvas(length: length, {
+          nurbs(img.curve-spec(((0, 2), (2, 0)), degree: 1), stroke: black + 1pt)
+        }),
+        width: 50%,
+      )],
+      [#fig(
+        (length: diagram-style.unit) => canvas(length: length, {
+          nurbs(img.curve-spec(((0, 0), (0, 2), (2, 0), (2, 1.5), (3, 0)), degree: 1), stroke: black + 1pt)
+        }),
+        width: 75%,
+      )],
+    )],
+    grid.hline(),
+    [*圆*和*椭圆*是2阶的NURBS曲线。],
+    pad(x: 2mm, y: 2mm)[#comparison-grid(
+      columns: (1fr, 1fr),
+      gutter: 0.5em,
+      [#fig(
+        (length: diagram-style.unit) => canvas(length: length, {
+          nurbs(img.circle-data(r: 1), stroke: black + 1pt)
+        }),
+        width: 50%,
+      )],
+      [#fig(
+        (length: diagram-style.unit) => canvas(length: length, {
+          nurbs(img.circle-data(r: 2, ry: 1), stroke: black + 1pt)
+        }),
+      )],
+    )],
+    grid.hline(),
+    [自由曲线通常表示为3阶或5阶曲线。],
+    pad(x: 2mm, y: 2mm)[#fig(
+      (length: diagram-style.unit) => canvas(length: length, {
+        nurbs(img.curve-spec(((1, 0), (-1, 0), (-1, 4), (2, 4), (4, -1), (7, -1), (7, 3))), stroke: black + 1pt)
+      }),
+      width: 50%,
+    )],
+    grid.hline(),
+  )
+}
 
 === 控制点
 
@@ -1756,19 +1731,17 @@ NURBS曲线的控制点是至少（阶数+1）个点的列表。改变 NURBS 曲
 影响 NURBS 曲线中每个子曲线段的控制点数由曲线的阶数定义。例如，阶数为1的曲线中的每个子曲线段仅受两个端控制点的影响。在2阶曲线中，每个子曲线段受三个控制点影响，依此类推。
 #footnote[译者注，在大多数文献中，对span的翻译是跨度，但是相对不太直观，译者将其翻译为子曲线段。]
 
-#grid(
-  columns: (4fr, 1fr),
-  align: horizon,
-  gutter: 1em,
+#comparison-grid(
+  columns: (3fr, 1fr),
   grid.hline(),
   [1阶曲线的所有控制点都在曲线上。在 1阶NURBS曲线中，两个（阶数+1）控制点定义一个子曲线段。使用五个控制点，曲线有四个子曲线段。],
-  [#image("image/math-image130.png", width: 100%)],
+  pad(x: 2mm, y: 2mm)[#fig(img.linear-spans, width: 75%)],
   grid.hline(),
   [圆形和椭圆是二阶曲线的示例。在 2阶NURBS曲线中，三个（阶数+1）控制点定义一个子曲线段。使用五个控制点，曲线有三个子曲线段。],
-  [#image("image/math-image132.png", width: 100%)],
+  pad(x: 2mm, y: 2mm)[#fig(img.quadratic-spans, width: 75%)],
   grid.hline(),
-  [3阶曲线的控制点通常不接触曲线，但开放曲线的端点除外。在 3阶NURBS曲线中，四个（阶数+1）控制点定义一个子曲线段。使用五个控制点，曲线有三个子曲线段。],
-  [#image("image/math-image134.png", width: 100%)],
+  [3阶曲线的控制点通常不接触曲线，但开放曲线的端点除外。在 3阶NURBS曲线中，四个（阶数+1）控制点定义一个子曲线段。使用五个控制点，曲线有两个子曲线段。],
+  pad(x: 2mm, y: 2mm)[#fig(img.cubic-spans, width: 75%)],
   grid.hline(),
 )
 
@@ -1780,7 +1753,8 @@ NURBS曲线的控制点是至少（阶数+1）个点的列表。改变 NURBS 曲
   90度圆弧控制点中间点的权重正好为$sqrt(2)\/ 2 approx 0.707107$。圆弧控制点的中间点的权重和控制点连线的夹角有关，具体证明可自行深入了解。]
 
 #figure(
-  image("image/math-image135.png", width: 75%),
+  fig(img.weight-comparison, width: 75%),
+  kind: image,
   caption: [不同权重的控制点对结果曲线的影响。左曲线是非有理曲线，控制点权重一致。右边的圆圈是一条有理曲线，角控制点的权重小于1。],
 )
 
@@ -1796,19 +1770,21 @@ NURBS曲线的控制点是至少（阶数+1）个点的列表。改变 NURBS 曲
 
 - 节点列表长度=控制点数量+阶数-1
 
-一般来说，对于非周期曲线，节点向量的第一个值等于曲线区间最小值，节点向量第二个值等于区间最大值。
+一般来说，对于非周期曲线，节点向量的第一个值等于曲线区间最小值，节点向量最后一个值等于区间最大值。
 
 例如一个具有七个控制点且曲线区间为0到4的开放的三阶NURBS曲线的节点列表类似于$lr(chevron.l 0, 0, 0, 1, 2, 3, 4, 4, 4 chevron.r)$
 
 #figure(
-  image("image/figure-38a.png", width: 100%),
+  fig(img.knot-domain),
+  kind: image,
   caption: [控制点、节点列表长度和阶数的关系],
 )
 
 缩放节点列表中的值不会影响曲线形状，如果将曲线区间从0-4修改为0-1，节点列表会缩放，但曲线形状不会改变。
 
 #figure(
-  image("image/math-image-figure38A.png", width: 100%),
+  fig(img.normalized-knots),
+  kind: image,
   caption: [缩放节点列表后的曲线],
 )
 
@@ -1825,10 +1801,8 @@ NURBS曲线的控制点是至少（阶数+1）个点的列表。改变 NURBS 曲
 下面两条线具有相同的控制点位置和数量，但有不同的节点列表和曲线形状。
 #block[
   #set par(spacing: 0.65em)
-  #table(
+  #comparison-table(
     columns: (3fr, 2fr),
-    inset: 10pt,
-    align: horizon,
     [阶数=3 控制点数量 =7
 
       节点列表$=lr(chevron.l 0, 0, 0, 1, 2, 3, 4, 4, 4 chevron.r)$
@@ -1836,7 +1810,7 @@ NURBS曲线的控制点是至少（阶数+1）个点的列表。改变 NURBS 曲
       节点列表长度=9
 
       曲线区间（0到4）],
-    [#image("image/math-image151.png", width: 100%)],
+    [#fig(img.simple-knots)],
 
     [阶数=3 控制点数量 =7
 
@@ -1845,9 +1819,9 @@ NURBS曲线的控制点是至少（阶数+1）个点的列表。改变 NURBS 曲
       节点列表长度=9
 
       曲线区间（0到4）],
-    [#image("image/math-image154.png", width: 100%)],
+    [#fig(img.repeated-knots)],
   )
-  )]
+]
 
 
 
@@ -1858,7 +1832,8 @@ NURBS曲线的控制点是至少（阶数+1）个点的列表。改变 NURBS 曲
 单一节点是只在节点列表中只出现一次的节点，一般出现在节点列表的内部，也就是非端点的位置。
 
 #figure(
-  image("image/math-image152.png", width: 75%),
+  fig(img.clamped-knots, width: 75%),
+  kind: image,
   caption: [夹紧曲线在起点和终点具有完整重复节点，内部的节点都是单一节点],
 )
 
@@ -1869,7 +1844,8 @@ NURBS曲线的控制点是至少（阶数+1）个点的列表。改变 NURBS 曲
 节点列表已完全重复节点开始，然后是单一节点，最后又是完全重复节点，这些节点的值满足等差序列并且递增。典型的是上一节说的钳位的开放曲线。稍后我们将看到周期曲线，他有不同的节点形式。
 
 #figure(
-  image("image/math-image-figure41.png", width: 100%),
+  fig(img.uniform-knots),
+  kind: image,
   caption: [均匀节点列表意味着结之间的间距是恒定的，但夹紧曲线除外，它们在开始和结束时可以具有完整的完全重复节点，并且仍然被认为是均匀的。左边的曲线是周期性的（闭合，没有扭结），右边的曲线是夹紧的（打开的）。],
 )
 
@@ -1878,7 +1854,8 @@ NURBS曲线的控制点是至少（阶数+1）个点的列表。改变 NURBS 曲
 允许NURBS曲线在节点间具有不同的间距有助于控制曲线曲率，已创建更顺滑的曲线，已下图为例，左侧使用非均匀节点列表构造曲线，右侧使用均匀节点列表构造曲线，一般来说如果NURBS曲线的节点值之间的间距和控制点之间的距离成正比，曲线会更顺滑。
 
 #figure(
-  image("image/figure-38b.png", width: 100%),
+  fig(img.nonuniform-knots),
+  kind: image,
   caption: [非均匀节点列表可以帮助平滑曲线],
 )
 
@@ -1889,8 +1866,9 @@ NURBS曲线的控制点是至少（阶数+1）个点的列表。改变 NURBS 曲
 - 节点间距 $= [0,1,0,1,0,1,0,1,0]$ — (非均匀)
 
 #figure(
-  image("image/math-image-figure43.png", width: 100%),
-  caption: [非均匀有理曲线示例NURBS圆#footnote[译者注，此处w=0.7为约数，准确值应为$sqrt(2) / 2$]],
+  fig(img.rational-circle),
+  kind: image,
+  caption: [非均匀有理曲线示例NURBS圆#footnote[译者注，圆弧角控制点使用准确权重$sqrt(2) / 2$]],
 )
 
 === 计算规则
@@ -1900,7 +1878,8 @@ NURBS曲线的控制点是至少（阶数+1）个点的列表。改变 NURBS 曲
 使用该公式，函数可以计算曲线参数并且生成对应的点。参数是曲线区间内的值。区间一般来说是递增区间，由曲线起点的区间最小值$t_0$和曲线终点的区间最大值$t_1$组成。
 
 #figure(
-  image("image/math-image153.png", width: 100%),
+  fig(img.parameter-evaluation),
+  kind: image,
   caption: [计算曲线上参数到点],
 )
 
@@ -1914,128 +1893,144 @@ NURBS曲线的控制点是至少（阶数+1）个点的列表。改变 NURBS 曲
 - 控制点权重列表
 - 节点列表
 
-创建曲线时，一般至少需要提供控制点的位置和阶数，其他的信息可以根据阶数和控制点列表自动生成。选择与起点重合的终点通常会创建一条闭合的周期曲线。下表是一些开放和封闭曲线的示例。
+创建曲线时，一般至少需要提供控制点的位置和阶数，其他的信息可以根据阶数和控制点列表自动生成。选择与起点重合的终点可以创建闭合曲线，但并不自动保证周期性；周期曲线还需要相应的控制点及节点结构。下表是一些开放和封闭曲线的示例。
 
-#table(
+#comparison-table(
   columns: (auto, auto),
-  inset: 10pt,
-  align: horizon,
-  [一阶开放曲线，曲线经过所有控制点], [#image("image/math-image148.png", width: 100%)],
-  [三阶开放曲线，曲线端点均与控制点重合], [#image("image/math-image147.png", width: 100%)],
-  [三阶闭合周期曲线，曲线接缝（起点终点重合位置）不经过控制点], [#image("image/math-image150.png", width: 100%)],
-  [移动周期曲线的控制点不会影响曲线连续性], [#image("image/math-image149.png", width: 100%)],
-  [当其曲线被迫通过某个控制点时，会产生纽结], [#image("image/math-image146.png", width: 100%)],
-  [移动非周期曲线的控制点并不能保证曲线的连续性，但可以更好的控制结果。],
-  [#image("image/math-image145.png", width: 100%)],
+  [一阶开放曲线，曲线经过所有控制点], [#fig(img.open-polyline)],
+  [三阶开放曲线，曲线端点均与控制点重合], [#fig(img.open-cubic)],
+  [三阶闭合周期曲线，曲线接缝（起点终点重合位置）不经过控制点], [#fig(img.periodic-curve)],
+  [移动周期曲线的控制点不会影响曲线连续性], [#fig(img.periodic-edit)],
+  [当其曲线被迫通过某个控制点时，会产生纽结], [#fig(img.closed-curve)],
+  [移动非周期曲线的控制点并不能保证曲线的连续性，但可以更好的控制结果。], [#fig(img.closed-edit)],
 )
 
 === 夹紧和周期NURBS曲线
 
-闭合夹紧曲线的端点和控制点重合，周期曲线时平滑的闭合曲线，二者差异可以通过比较控制点和节点快速了解。
+闭合夹紧曲线的接缝与首尾控制点重合，但不一定光滑；周期曲线在接缝处保持连续。比较控制点和节点列表，可以了解两者的差异。
 
-下面是一个开放的钳位非有理NURBS曲线的示例。该曲线有四个控制点，端点上有完全重复节点，且控制点权重均为1。
+下面是一个三阶开放夹紧非有理NURBS曲线的示例。该曲线有四个控制点，端点上有完全重复节点，且控制点权重均为1。以下数据表采用Rhino节点格式，即省略标准完整节点向量首尾各一个节点。
 
 #figure(
-  image("image/math-image118.png", width: 100%),
+  fig(img.cubic-open-analysis),
   caption: [分析三阶开放非有理NURBS曲线],
 )
 
-下面的圆形曲线#footnote[译者注：不是圆]是三阶闭合周期曲线的例子，他也是非有理即等权重的。注意周期曲线需要更多的控制点，并且有几个点重叠了。节点列表全部是单一节点。
+下面是三阶闭合周期曲线的示例，它也是非有理曲线，即所有控制点的权重相同。四个独立控制点在周期表示中展开为七个控制点：末尾重复前三个控制点及其权重。节点列表全部是单一节点。
 
 #figure(
-  image("image/math-image119.png", width: 100%),
+  fig(img.cubic-periodic-analysis),
   caption: [分析三阶闭合周期NURBS曲线],
 )
 
-注意周期曲线将四个控制点变成了七个（4+阶数）控制点，而钳位曲线仅仅使用四个控制点。周期曲线只使用单一节点，钳位曲线的端点使用完全重复节点，使曲线端点经过控制点。
+三阶周期曲线在数据中存储七个（4+阶数）控制点，其中只有四个独立位置；对应的开放夹紧曲线只存储四个控制点。这里的周期曲线使用均匀单一节点，而夹紧曲线的端点使用完全重复节点，使曲线经过首尾控制点。
 
-如果我们将前面案例的阶数设置为二阶而不是3阶，那么节点列表长度会变小，并且周期曲线控制点数量会发生变化。
+将前面案例的阶数从三阶改为二阶后，节点列表变短；开放曲线仍有四个控制点，周期曲线则存储六个（4+2）控制点，其中末尾两个重复前两个控制点。下面两条曲线的权重仍全部为1。
 
 #figure(
-  image("image/math-image120.png", width: 100%),
+  fig(img.quadratic-open-analysis),
   caption: [分析二阶开放NURBS曲线],
 )
 
 
 #figure(
-  image("image/math-image121.png", width: 100%),
+  fig(img.quadratic-periodic-analysis),
   caption: [分析二阶闭合周期NURBS曲线],
 )
 
 === 权重
 
-非有理均匀NURBS曲线的控制点权重均为1，但在有理曲线中可能会不一致，下面展示了权重变化的效果。
+非有理NURBS曲线的控制点权重相同，通常统一取1；有理曲线的权重可以不同。下面分别将三阶开放曲线和二阶周期曲线的四个独立控制点权重改为0.2、0.3、1.5、1，保留各自的控制点位置和节点列表，以展示权重对形状的影响。周期曲线末尾重复控制点的权重也必须同步重复，因此其六项权重为0.2、0.3、1.5、1、0.2、0.3。
 
 #figure(
-  image("image/math-image122.png", width: 100%),
-  caption: [分析开放NURBS曲线的权重],
+  fig(img.weighted-open-analysis),
+  caption: [分析三阶开放NURBS曲线的权重],
 )
 
 #figure(
-  image("image/math-image115.png", width: 100%),
-  caption: [分析闭合NURBS曲线的权重],
+  fig(img.weighted-periodic-analysis),
+  caption: [分析二阶闭合周期NURBS曲线的权重],
 )
 
 === NURBS曲线的计算
 
 de Boor 算法以其发明者 Carl de Boor 命名，是 Bezier 曲线 de Casteljau 算法的推广。它具有数值稳定性，广泛用于评估 3D 应用中 NURBS 曲线上的点。以下是使用 de Boor 算法评估 3 阶 NURBS 曲线上的点的示例。
 
-#grid(
+#comparison-grid(
   columns: (3fr, 2fr),
-  align: top,
   [
     *输入*：
-    - 七个控制点$P 0$到$P 6$
+    - 七个控制点 $P_0$ 到 $P_6$
     - 节点列表：
       $
-        u_0 = 0.0 \
-        u_1 = 0.0 \
-        u_2 = 0.0 \
-        ​u_3= 0.25 \
-        ​u_4 = 0.5 \
+        u_0 = u_1 = u_2 = 0 \
+        u_3 = 0.25, quad u_4 = 0.5 \
         u_5 = 0.75 \
-        u_6 = 1.0 \
-        ​u_7 = 1.0 \
-        u_8 = 1.0
+        u_6 = u_7 = u_8 = 1
       $
 
-    *输出*：
-
-    - 曲线上$u=0.4$的点
-
-    *解决步骤*：
-
-    + 计算第一次迭代的系数$ A_c = (u – u_1) / (u_(1+3) – u_1) = 0.8\
-      ​ B_c = (u – u_2) / (u_(2+3) – u_2) = 0.53\
-      ​ C_c = (u – u_3) / (u_(3+3) – u_3) = 0.2 $
+    *输出*：曲线上 $u=0.4$ 的点。
   ],
-  [#image("image/math-image114.png", width: 100%)],
+  [#fig(img.deboor.with(stage: 0))],
 )
 
-2. 使用系数数据计算点：
-  $
-    A = 0.2P_1 + 0.8P_2\
-    B = 0.47 P_2 + 0.53 P_3\
-    C = 0.8 P_3 + 0.2 P_4
-  $
+*解决步骤*：
 
-+ 计算第二次迭代的系数：
-  $
-    D_c = (u – u_2) / (u_(2+3-1) – u_2) = 0.8\
-    ​ E_c = (u – u_3) / (u_(3+3-1) – u_3) = 0.3
-  $
+#block(breakable: false)[
+  #comparison-grid(
+    columns: (3fr, 2fr),
+    [
+      1. 计算第一次迭代的系数：
+        $
+          A_c = (u - u_1) / (u_(1+3) - u_1) = 0.8 \
+          B_c = (u - u_2) / (u_(2+3) - u_2) approx 0.53 \
+          C_c = (u - u_3) / (u_(3+3) - u_3) = 0.2
+        $
 
-+ 使用系数计算点：
-  $
-    D = 0.2A+ 0.8B\
-    ​ E = 0.7B + 0.3C
-  $
+      2. 使用系数计算点：
+        $
+          A = 0.2P_1 + 0.8P_2 \
+          B approx 0.47P_2 + 0.53P_3 \
+          C = 0.8P_3 + 0.2P_4
+        $
+    ],
+    [#fig(img.deboor.with(stage: 1))],
+  )
+]
 
-+ 计算最后一个系数：
-  $ F_c = (u – u_3) / (u_(3+3-2) – u_3) = 0.6 $
+#block(breakable: false)[
+  #comparison-grid(
+    columns: (3fr, 2fr),
+    [
+      3. 计算第二次迭代的系数：
+        $
+          D_c = (u - u_2) / (u_(2+3-1) - u_2) = 0.8 \
+          E_c = (u - u_3) / (u_(3+3-1) - u_3) = 0.3
+        $
 
-+ 找到$u=0.4$参数处的点：
-  $ F= 0.4D + 0.6E $
+      4. 使用系数计算点：
+        $
+          D = 0.2A + 0.8B \
+          E = 0.7B + 0.3C
+        $
+    ],
+    [#fig(img.deboor.with(stage: 2))],
+  )
+]
+
+#block(breakable: false)[
+  #comparison-grid(
+    columns: (3fr, 2fr),
+    [
+      5. 计算最后一个系数：
+        $ F_c = (u - u_3) / (u_(3+3-2) - u_3) = 0.6 $
+
+      6. 找到 $u=0.4$ 参数处的点：
+        $ F = 0.4D + 0.6E $
+    ],
+    [#fig(img.deboor.with(stage: 3))],
+  )
+]
 
 == 曲线的几何连续性
 
@@ -2047,7 +2042,8 @@ de Boor 算法以其发明者 Carl de Boor 命名，是 Bezier 曲线 de Castelj
 - *GN*:更高的连续性...
 
 #figure(
-  image("image/math-image138.png", width: 100%),
+  fig(img.continuity-combs),
+  kind: image,
   caption: [使用曲率图检查曲线连续性],
 )
 
@@ -2058,7 +2054,8 @@ de Boor 算法以其发明者 Carl de Boor 命名，是 Bezier 曲线 de Castelj
 在平面中曲线上的任意一点，最接近通过的曲线该点的直线是切线。我们还可以找到经过该点并与曲线相切的最接近圆既曲率圆。该圆的半径的倒数就是该点的曲线曲率。
 
 #figure(
-  image("image/math-image188.png", width: 50%),
+  fig(img.curvature-circles, width: 50%),
+  kind: image,
   caption: [检查不同点处的曲线曲率],
 )
 
@@ -2081,7 +2078,7 @@ $ P = P’ + u dot bold(arrow(a)) + v dot bold(arrow(b)) $
 - $v$: 第二个参数
 
 #figure(
-  image("image/math-image189.png", width: 75%),
+  fig(img.plane-parameters),
   caption: [参数区间矩形平面],
 )
 
@@ -2096,7 +2093,7 @@ $ x^2 + y^2 + z^2 = R^2 $
 - $phi$：和z轴的夹角
 
 #figure(
-  image("image/math-image127.png", width: 50%),
+  fig(img.spherical-coordinates, width: 50%),
   caption: [球面坐标系],
 )
 
@@ -2132,7 +2129,7 @@ $
 其中$(u,v)$在区间$(2pi,pi)$内
 
 #figure(
-  image("image/math-image191.png", width: 75%),
+  fig(img.sphere-parameters),
   caption: [球面的参数区间矩形平面],
 )
 
@@ -2150,7 +2147,7 @@ $
 更改曲面区间既重新参数化曲面。递增区间意味着区间的最小值表示曲面的最小点，和曲线相同，区间通常是递增的，但并非绝对。
 
 #figure(
-  image("image/math-image192.png", width: 75%),
+  image("image/math-image192.png", width: 100%),
   caption: [3D空间中的NURBS曲面（左），曲面的参数区间矩形，区间在第一个方向上从u0到u1，第二个方向上从v0到v1（右）],
 )
 
@@ -2159,7 +2156,7 @@ $
 在曲面区间内的参数进行曲面计算会得到曲面上的点，同曲线一样曲面区间上的中心点不一定得到曲面的中心点。另外，曲面区间之外的u和v值不会得到有效的结果。
 
 #figure(
-  image("image/math-image193.png", width: 75%),
+  image("image/math-image193.png", width: 100%),
   caption: [曲面计算],
 )
 
@@ -2193,7 +2190,7 @@ $
 如果我们取切平面上该点所有的方向，并计算对应的所有法向曲率，将有一个最大值和最小值。
 
 #figure(
-  image("image/math-image125.png", width: 75%),
+  fig(img.normal-curvature),
   caption: [法向曲率],
 )
 
@@ -2204,7 +2201,7 @@ $
 例如在圆柱面上，沿轴向方向没有弯曲（曲率为0），最大弯曲出现在平面和轴向垂直时（曲率等于半径的倒数）。这两个曲率（0和半径的倒数）构成了主曲率。
 
 #figure(
-  image("image/math-image86.png", width: 75%),
+  fig(img.principal-curvatures),
   caption: [曲面上点的主曲率是该点的最大和最小曲率],
 )
 
@@ -2212,7 +2209,7 @@ $
 
 曲面上某点的高斯曲率是该点的两个主曲率的乘积。曲面上有正高斯曲率的点切平面仅经过该点，负高斯曲率的点切平面会切割表面。
 
-#align(center)[#image("image/math-image91.png", width: 75%)]
+#image("image/math-image91.png", width: 75%)
 
 - A：碗状时高斯曲率为正。
 
@@ -2248,7 +2245,7 @@ $
 )
 
 #figure(
-  image("image/math-image84.png", width: 75%),
+  fig(img.surface-parameter-domain, width: 75%),
   caption: [NURBS曲面的参数区间矩形],
 )
 
@@ -2271,10 +2268,8 @@ NURBS曲面的特性和NURBS曲线非常相似，只是增加了一个维度。N
 
 和NURBS曲线一样，我们不需要了解如何创建NURBS曲面的具体细节，因为建模软件通常会提供一组包装好的工具。我们始终可以将曲面（以及关联的曲线）重建为新的控制点数和阶数。曲面同样可以是开放的、闭合的又或者是周期的。下面是一些示例。#footnote[译者注：下表中的闭合指一个方向的闭合而不是指曲面形成了封闭实体。]
 
-#table(
+#comparison-table(
   columns: (2.5fr, 1fr),
-  inset: 10pt,
-  align: horizon,
   [u和v方向的1阶曲面。所有控制点都位于曲面上], [#image("image/math-image73.png", width: 100%)],
   [u方向阶数为3，v方向阶数为1的开放曲面。曲面角点控制点角点重合], [#image("image/math-image71.png", width: 100%)],
   [u方向阶数为3，v方向阶数为1的闭合（非周期的）曲面。控制点角点和曲面接缝重合],
@@ -2290,14 +2285,14 @@ NURBS曲面的特性和NURBS曲线非常相似，只是增加了一个维度。N
 假如我们构造一个简单的一节矩形平面，拖动两个端点控制点到中间重叠，则获得了一个缩为单点的边。我们能注意到曲面的等值线在该点收敛。
 
 #figure(
-  image("image/math-image109.png", width: 100%),
+  fig(img.collapsed-surface),
   caption: [折叠曲面的两个角点，创建有奇点的三角形，参数区间矩形没有变化],
 )
 
 上面的三角形也可以在不产生奇点的情况下构造，我们可以使用三角形线修剪曲面，当我们检查修剪曲面的底层NURBS结构时，我们会发现仍是矩形的。
 
 #figure(
-  image("image/math-image99.png", width: 100%),
+  fig(img.trimmed-triangle),
   caption: [修剪矩形NURBS曲面创建三角形面],
 )
 
@@ -2373,7 +2368,7 @@ BRep是一种数据结构，它根据每个面的底层曲面、面的边缘、�
 
 检查两条输入曲线之间的连续性。假定曲线在第一条曲线的末端和第二条曲线的起点相交。
 
-#align(center)[#image("image/math-image48.png", width: 75%)]
+#fig(img.continuity-examples, width: 75%)
 
 *输入*：
 
@@ -2383,7 +2378,7 @@ BRep是一种数据结构，它根据每个面的底层曲面、面的边缘、�
 
 计算以下内容以确定连续性
 
-#align(center)[#image("image/math-image46.png", width: 50%)]
+#fig(img.continuity-vectors, width: 50%)
 
 - 第一条曲线的终点P1
 - 第二条曲线的起点P2
@@ -2395,24 +2390,24 @@ BRep是一种数据结构，它根据每个面的底层曲面、面的边缘、�
 + 重新参数化输入曲线。我们这样做是为了我们知道曲线的起点在$t=0$计算，终点在$t=1$计算。
 
 + 提取两条曲线的终点和起点，并检查它们是否重合。如果是，两条曲线至少是G0连续。
-  #align(center)[#image("image/math-image36.png", width: 100%)]
+  #image("image/math-image36.png", width: 100%)
 
 + 计算切向量
 
 + 使用点积比较切线，确定做了向量单位化操作。如果向量平行，那么我们有G1连续。
-  #align(center)[#image("image/math-image34.png", width: 100%)]
+  #image("image/math-image34.png", width: 100%)
 
 + 计算曲率向量（法向）
 
 + 比较曲率向量，如果二者一致，则两曲线G2连续。
-  #align(center)[#image("image/math-image40.png", width: 100%)]
+  #image("image/math-image40.png", width: 100%)
 
 + 创建筛选三个结果（G1、G2 和 G3）的逻辑，并选择最高的连续性。
-  #align(center)[#image("image/math-image38.png", width: 100%)]
+  #image("image/math-image38.png", width: 100%)
 
 使用VB组件：
 
-#align(center)[#image("image/math-image31.png", width: 75%)]
+#image("image/math-image31.png", width: 75%)
 
 ```vb
 Private Sub RunScript(ByVal c1 As Curve, ByVal c2 As Curve, ByRef A As Object)
@@ -2470,7 +2465,7 @@ End Sub
 
 使用Python组件：
 
-#align(center)[#image("image/math-image69.png", width: 50%)]
+#image("image/math-image69.png", width: 50%)
 
 ```python
 #定义变量
@@ -2526,9 +2521,9 @@ A = continuity
 
 使用c\#组件：
 
-#align(center)[#image("image/math-image70.png", width: 50%)]
+#image("image/math-image70.png", width: 50%)
 
-```csharp
+```cs
 private void RunScript(Curve c1, Curve c2, ref object A)
 {
 	//定义变量
@@ -2588,7 +2583,7 @@ private void RunScript(Curve c1, Curve c2, ref object A)
 提取球体和圆锥中的奇点。
 
 *输入*：
-#align(center)[#image("image/math-image61.png", width: 50%)]
+#image("image/math-image61.png", width: 50%)
 - 一个球体和一个圆锥体。
 
 *参数*：
@@ -2603,7 +2598,7 @@ private void RunScript(Curve c1, Curve c2, ref object A)
 
 使用VB组件：
 
-#align(center)[#image("image/math-image59.png", width: 75%)]
+#image("image/math-image59.png", width: 75%)
 
 ```vb
 Private Sub RunScript(ByVal srf As Brep, ByRef A As Object)
@@ -2638,7 +2633,7 @@ End Sub
 
 使用python组件：
 
-#align(center)[#image("image/math-image53.png", width: 75%)]
+#image("image/math-image53.png", width: 75%)
 
 ```python
 #定义点列表
@@ -2663,9 +2658,9 @@ A = singular_points
 ```
 使用c\#组件:
 
-#align(center)[#image("image/math-image63.png", width: 75%)]
+#image("image/math-image63.png", width: 75%)
 
-```csharp
+```cs
 private void RunScript(Brep srf, ref object A)
 {
   //定义点列表
@@ -2723,11 +2718,4 @@ private void RunScript(Brep srf, ref object A)
 + Wikipedia: De Boor’s algorithm.#footnote[http://en.wikipedia.org/wiki/De_Boor's_algorithm]
 
 + MichiganTech, Department of Computer Science, De Boor’s algorithm.#footnote[http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/de-Boor.html]
-
-
-
-
-
-
-
 
